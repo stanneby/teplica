@@ -1,0 +1,21 @@
+{
+  "name": "teplica",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "html-webpack-inline-source-plugin": "0.0.10",
+    "html-webpack-plugin": "^5.5.0",
+    "inline-chunk-html-plugin": "^1.1.1",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.2",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1"
+  }
+}
