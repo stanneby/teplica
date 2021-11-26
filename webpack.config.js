@@ -31,4 +31,5 @@ module.exports = {
     }),
     new InlineChunkHtmlPlugin(HtmlWebpackPlugin, ["front"]),
   ],
+  target: "node",
 };
