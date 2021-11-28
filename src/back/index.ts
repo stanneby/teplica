@@ -3,6 +3,7 @@ import { IncomingMessage, ServerResponse } from "http";
 var http = require("http");
 var fs = require("fs");
 var path = require("path");
+const WebSocket = require("ws");
 
 http
   .createServer(function (request: IncomingMessage, response: ServerResponse) {
@@ -64,3 +65,16 @@ http
   })
   .listen(8125);
 console.log("Server running at http://127.0.0.1:8125/");
+
+const wss = new WebSocket.Server({ port: 8080 });
+
+wss.on("connection", function connection(ws: WebSocket) {
+  console.log("connection attempted");
+  // Wire up logic for the message event (when a client sends something)
+  ws.addEventListener("message", function incoming(e: MessageEvent) {
+    console.log("received: %s", e.data);
+  });
+
+  // Send a message
+  ws.send("Hello client!");
+});
