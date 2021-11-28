@@ -28,6 +28,7 @@ module.exports = {
       inject: true,
       inlineSource: ".(js|css)$",
       chunks: ["front"],
+      template: "./src/front/index.html",
     }),
     new InlineChunkHtmlPlugin(HtmlWebpackPlugin, ["front"]),
   ],

@@ -1,7 +1,6 @@
 import { debugOut } from "./utils";
-
-console.log(debugOut());
-document.createElement("block").appendChild(document.createElement("b"));
+import { ViewDeviceData } from "./utils/common-types";
+import { View } from "./view/view";
 
 const socket = new WebSocket("ws://localhost:8080");
 
@@ -14,3 +13,9 @@ socket.addEventListener("open", function (event) {
 socket.addEventListener("message", function (event) {
   console.log("Message from server ", event.data);
 });
+
+let view: View;
+
+window.onload = async () => {
+  view = new View();
+};
