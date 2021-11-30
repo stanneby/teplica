@@ -45,21 +45,3 @@ export class mockPresentationData {
     },
   ];
 }
-
-// export class PresentationMocker {
-//   private tables: PlanTablePresentationData[];
-//   constructor() {
-//     this.tables = mockPresentationData.mockPlanTablePresentationData;
-//   }
-
-//   getPresentationDeviceUpdate(): DevicePresentationData {
-//     let data: DevicePresentationData;
-
-//     this.tables.forEach((element) => {
-//       let index = getRandomInt(element.devices.length);
-//       let device = element
-//     });
-
-//     return data;
-//   }
-// }

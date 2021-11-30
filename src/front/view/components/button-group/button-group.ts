@@ -3,7 +3,7 @@ import { BaseButtonComponent } from "../button/button";
 import { CustomizableButton } from "../button/customizable-button";
 
 export class ButtonGroupComponent extends BaseComponent {
-  constructor(private buttons: CustomizableButton[]) {
+  constructor(inactiveDefault: number, private buttons: CustomizableButton[]) {
     super();
     buttons.forEach((button, index) => {
       button.render(this.element);
@@ -12,7 +12,9 @@ export class ButtonGroupComponent extends BaseComponent {
         button.deactivate();
       });
     });
-    buttons[0].activate();
+    if (inactiveDefault < this.buttons.length) {
+      buttons[inactiveDefault].deactivate();
+    }
   }
 
   deactivateAll(): ButtonGroupComponent {

@@ -22,9 +22,13 @@ export class Presenter implements IPresenter {
   }
   stopGrowth(): IPresenter {
     this.view.setMode(0);
+    this.view.givePlanTables(
+      mockPresentationData.mockPlanTablePresentationData
+    );
     return this;
   }
   startGrowth(name: string): IPresenter {
+    console.log(name);
     this.view.setMode(1);
     return this;
   }

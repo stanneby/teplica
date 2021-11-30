@@ -34,6 +34,7 @@ export class View implements IView {
   }
 
   givePlanTables(data: PlanTablePresentationData[]): IView {
+    console.log("view plan table given");
     this.window.setData(data);
     return this;
   }

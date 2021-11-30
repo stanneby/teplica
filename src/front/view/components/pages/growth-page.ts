@@ -8,7 +8,7 @@ export class GrowthPage extends Page implements ISettableInterface {
     this.element.innerHTML = "Growth";
   }
 
-  setData(data: DevicePresentationData) {
+  setData(data: DevicePresentationData[]) {
     console.log(data);
     return this;
   }

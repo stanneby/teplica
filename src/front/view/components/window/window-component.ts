@@ -14,14 +14,17 @@ export class WindowComponent
   constructor(startCallback: (name: string) => void, stopCallback: () => void) {
     super();
     let stopStartButtons: CustomizableButton[] = [
-      new CustomizableButton("start", startCallback),
+      new CustomizableButton("start", () => {
+        startCallback(this.page.flushEnd());
+      }),
       new CustomizableButton("stop", stopCallback),
     ];
     let stopStartButtonGroup = new ButtonGroupComponent(
+      1,
       stopStartButtons
     ).render(this.element);
   }
-  setData(data: PresentationData): ISettableInterface {
+  setData(data: PresentationData[]): ISettableInterface {
     this.page.setData(data);
     return this;
   }
