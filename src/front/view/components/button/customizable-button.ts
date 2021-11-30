@@ -1,7 +1,7 @@
 import { BaseButtonComponent } from "./button";
 
 export class CustomizableButton extends BaseButtonComponent {
-  constructor(name: string, callback: () => void) {
+  constructor(name: string, callback: (arg?: string) => void) {
     super(name, callback);
   }
 

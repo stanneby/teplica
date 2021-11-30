@@ -1,6 +1,9 @@
+import { Presenter } from "./presenter/presenter";
+import { IPresenter } from "./presenter/presenter-interface";
 import { debugOut } from "./utils";
-import { ViewDeviceData } from "./utils/common-types";
+import { DevicePresentationData } from "./shared/common-types";
 import { View } from "./view/view";
+import { IView } from "./view/view-interface";
 
 const socket = new WebSocket("ws://localhost:8080");
 
@@ -15,7 +18,10 @@ socket.addEventListener("message", function (event) {
 });
 
 let view: View;
+let presenter: Presenter = new Presenter();
 
 window.onload = async () => {
-  view = new View();
+  view = new View(presenter);
+  presenter.init(view);
+  view.start();
 };

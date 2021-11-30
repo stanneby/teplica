@@ -56,17 +56,3 @@ export class TimePeriod {
     return `from ${this.start.getString()} to ${this.end.getString()}`;
   }
 }
-
-export type PlanTableRow = {
-  period: TimePeriod;
-  temperature: number;
-  humidity: number;
-  illumination: number;
-  nutrients: number;
-  ph: number;
-};
-
-export type PlanTable = {
-  name: string;
-  data: PlanTableRow;
-};

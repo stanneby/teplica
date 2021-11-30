@@ -1,9 +1,10 @@
-import { ViewDeviceData } from "../utils/common-types";
-import { PlanTable } from "../../shared/common-types";
+import { DevicePresentationData } from "../shared/common-types";
+import { PlanTablePresentationData } from "../shared/common-types";
 
 export interface IView {
   setMode(mode: number): IView;
-  givePlanTables(data: PlanTable[]): IView;
-  setPlanTable(data: PlanTable): IView;
-  updateDevices(data: ViewDeviceData[]): IView;
+  givePlanTables(data: PlanTablePresentationData[]): IView;
+  setPlanTable(data: PlanTablePresentationData): IView;
+  updateDevices(data: DevicePresentationData[]): IView;
+  start(): IView;
 }

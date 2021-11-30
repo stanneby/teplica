@@ -3,7 +3,7 @@ import { BaseComponent } from "../base-component";
 export class BaseButtonComponent extends BaseComponent {
   private activated: boolean = false;
 
-  constructor(private name: string, private callback: () => void) {
+  constructor(private name: string, private callback: (arg?: string) => void) {
     super("button");
     this.element.innerHTML = name;
     this.element.addEventListener("click", () => {
