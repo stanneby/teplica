@@ -44,8 +44,7 @@ export class View implements IView {
   }
 
   updateDevices(data: DevicePresentationData[]): IView {
-    console.log(data);
-    // this.window.setData(data);
+    this.window.setData(data);
     return this;
   }
 

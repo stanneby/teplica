@@ -30,7 +30,7 @@ export class Presenter implements IPresenter {
     console.log(name);
     this.view.setMode(1);
     this.mocker.setPlan(name);
-    this.mocker.startGrowth(this.view.updateDevices);
+    this.mocker.startGrowth(this.view.updateDevices.bind(this.view));
     return this;
   }
 }

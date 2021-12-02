@@ -78,14 +78,21 @@ export class BackMocker {
       this.devices.push(new DevicePresentationDataDirector().create(device));
     });
 
-    this.intervalId = setInterval(() => {
-      this.devices.forEach((element) => {
-        element = new DevicePresentationDataUpdater(element).getResult();
-      });
-      onUpdateCallback(this.devices);
-    }, 2000);
+    // this.intervalId = setInterval(() => {
+    //   for (let i = 0; i < this.devices.length; i++) {
+    //     updateDevicePresentationData(this.devices[i]);
+    //   }
+
+    //   // onUpdateCallback(newDevices);
+    // }, 2000);
 
     onUpdateCallback(this.devices);
+
+    this.intervalId = setInterval(() => {
+      updateDevicePresentationData(this.devices);
+
+      onUpdateCallback(this.devices);
+    }, 2000);
   }
 
   stopGrowth() {
@@ -230,17 +237,13 @@ class DevicePresentationDataBuilder extends DevicePresentationDataRandomizer {
   }
 }
 
-class DevicePresentationDataUpdater extends DevicePresentationDataRandomizer {
-  constructor(device: DevicePresentationData) {
-    super();
-
-    this.reset();
-    this.device = device;
-    if (this.device.active) {
-      this.randomActive();
+function updateDevicePresentationData(devices: DevicePresentationData[]) {
+  devices.forEach((element) => {
+    if (element.value) {
+      element.value = `${getRandomInt(100)}`;
     }
-    if (this.device.value) {
-      this.randomValue();
+    if (element.active) {
+      element.active = getRandomInt(2) == 0 ? true : false;
     }
-  }
+  });
 }
