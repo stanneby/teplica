@@ -110,10 +110,10 @@ class DevicePresentationDataDirector {
   create(name: string): DevicePresentationData {
     let result: DevicePresentationData;
     this.builder.reset();
+    this.builder.addId().randomX().randomY();
 
     if (name == "heater") {
-      result = this.builder
-        .addId()
+      this.builder
         .addType("heater")
         .addIcon(
           `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
@@ -122,38 +122,18 @@ class DevicePresentationDataDirector {
         )
         .addValueName("DegC")
         .randomValue()
-        .randomActive()
-        .randomX()
-        .randomY()
-        .getResult();
+        .randomActive();
     } else if (name == "humidifier") {
-      result = this.builder
-        .addId()
-        .addType("humidifier")
-        .randomActive()
-        .randomX()
-        .randomY()
-        .getResult();
+      this.builder.addId().addType("humidifier").randomActive();
     } else if (name == "nutritioner") {
-      result = this.builder
-        .addId()
-        .addType("nutritioner")
-        .randomActive()
-        .randomX()
-        .randomY()
-        .getResult();
+      this.builder.addId().addType("nutritioner").randomActive();
     } else if (name == "illumination") {
-      result = this.builder
-        .addId()
+      this.builder
         .addType("illumination")
         .addValueName("percents of daylight")
-        .randomValue()
-        .randomX()
-        .randomY()
-        .getResult();
+        .randomValue();
     } else if (name == "temperature_sensor") {
-      result = this.builder
-        .addId()
+      this.builder
         .addIcon(
           `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
           <ellipse style="fill: rgb(255, 0, 0);" cx="250.381" cy="249.542" rx="243.509" ry="244.051"/>
@@ -161,40 +141,26 @@ class DevicePresentationDataDirector {
         )
         .addType("temperature sensor")
         .addValueName("DegC")
-        .randomValue()
-        .randomX()
-        .randomY()
-        .getResult();
+        .randomValue();
     } else if (name == "temperature_sensor_active") {
-      result = this.builder
-        .addId()
+      this.builder
         .addType("active temperature sensor")
         .addIcon(
           `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
           <ellipse style="fill: rgb(255, 0, 0);" cx="250.381" cy="249.542" rx="243.509" ry="244.051"/>
         </svg>`
         )
-        .randomActive()
-        .randomX()
-        .randomY()
-        .getResult();
+        .randomActive();
     } else if (name == "illumination_sensor") {
-      result = this.builder
-        .addId()
+      this.builder
         .addType("illumination sensor")
         .addValueName("percents_of_daylight")
-        .randomValue()
-        .randomX()
-        .randomY()
-        .getResult();
+        .randomValue();
     } /*else if {
       result = this.builder.addId().addType("humidity sensor").addIcon('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><ellipse style="fill: rgb(0, 153, 255);" cx="250.381" cy="249.542" rx="243.509" ry="244.051"/></svg>').addValueName('percent').randomValue()
-    } */ else {
-      result = this.builder.addId().randomX().randomY().getResult();
-    }
+    } */
 
-    this.builder.reset();
-    return result;
+    return this.builder.getResult();
   }
 }
 
