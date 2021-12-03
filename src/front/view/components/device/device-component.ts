@@ -72,8 +72,8 @@ export class DeviceComponent extends BaseComponent {
     }
 
     if (data.x && data.y) {
-      this.element.style.left = `${data.x}%`;
-      this.element.style.top = `${data.y}%`;
+      this.element.style.left = `${data.x * 5}px`;
+      this.element.style.top = `${data.y * 5}px`;
     }
   }
 }
