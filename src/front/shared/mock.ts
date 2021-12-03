@@ -35,8 +35,8 @@ export class mockPresentationData {
         "heater",
         "heater",
         "nutritioner",
-        "humidity_sensor",
-        "illumination_sensor",
+        "humidity sensor",
+        "illumination sensor",
       ],
     },
     {
