@@ -115,6 +115,11 @@ class DevicePresentationDataDirector {
       result = this.builder
         .addId()
         .addType("heater")
+        .addIcon(
+          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+        <rect x="1.448" y="1.152" width="496.78" height="495.696" style="paint-order: fill; fill-rule: nonzero; fill: rgb(255, 0, 0);"/>
+      </svg>`
+        )
         .addValueName("DegC")
         .randomValue()
         .randomActive()
@@ -141,7 +146,7 @@ class DevicePresentationDataDirector {
       result = this.builder
         .addId()
         .addType("illumination")
-        .addType("percents_of_daylight")
+        .addValueName("percents of daylight")
         .randomValue()
         .randomX()
         .randomY()
@@ -149,6 +154,11 @@ class DevicePresentationDataDirector {
     } else if (name == "temperature_sensor") {
       result = this.builder
         .addId()
+        .addIcon(
+          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+          <ellipse style="fill: rgb(255, 0, 0);" cx="250.381" cy="249.542" rx="243.509" ry="244.051"/>
+        </svg>`
+        )
         .addType("temperature sensor")
         .addValueName("DegC")
         .randomValue()
@@ -159,6 +169,11 @@ class DevicePresentationDataDirector {
       result = this.builder
         .addId()
         .addType("active temperature sensor")
+        .addIcon(
+          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+          <ellipse style="fill: rgb(255, 0, 0);" cx="250.381" cy="249.542" rx="243.509" ry="244.051"/>
+        </svg>`
+        )
         .randomActive()
         .randomX()
         .randomY()
@@ -172,7 +187,9 @@ class DevicePresentationDataDirector {
         .randomX()
         .randomY()
         .getResult();
-    } else {
+    } /*else if {
+      result = this.builder.addId().addType("humidity sensor").addIcon('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><ellipse style="fill: rgb(0, 153, 255);" cx="250.381" cy="249.542" rx="243.509" ry="244.051"/></svg>').addValueName('percent').randomValue()
+    } */ else {
       result = this.builder.addId().randomX().randomY().getResult();
     }
 
@@ -233,6 +250,11 @@ class DevicePresentationDataBuilder extends DevicePresentationDataRandomizer {
 
   addValueName(name: string): DevicePresentationDataBuilder {
     this.device.valueName = name;
+    return this;
+  }
+
+  addIcon(icon: string): DevicePresentationDataBuilder {
+    this.device.icon = icon;
     return this;
   }
 }

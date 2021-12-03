@@ -10,6 +10,7 @@ interface IDevicePresentationData extends PresentationData {
   active: boolean | undefined | null;
   x: number | undefined | null;
   y: number | undefined | null;
+  icon: string | undefined | null;
 }
 
 export type DevicePresentationData = IDevicePresentationData;

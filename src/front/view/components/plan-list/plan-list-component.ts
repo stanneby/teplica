@@ -3,12 +3,14 @@ import { ISettableInterface } from "../../settable-interface";
 import { BaseComponent } from "../base-component";
 import { PlanListElementComponent } from "./plan-list-element-component";
 
+import "./plan-list.css";
+
 export class PlanListComponent
   extends BaseComponent
   implements ISettableInterface
 {
   constructor(data: PlanTablePresentationData[]) {
-    super("div");
+    super("div", ["list"]);
     this.setData(data);
   }
 

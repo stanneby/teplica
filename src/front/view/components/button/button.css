@@ -1,3 +1,7 @@
 .button__inactive {
   background-color: grey;
 }
+
+button {
+  margin: 5px;
+}

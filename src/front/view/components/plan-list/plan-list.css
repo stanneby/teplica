@@ -1,0 +1,26 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+
+  margin: 0;
+  padding: 0;
+}
+
+.row-col {
+  margin: 0;
+  padding: 10;
+  border: 2px solid black;
+}
+
+.name {
+  width: 100px;
+}
+
+.devices {
+  width: 200px;
+}
+
+p {
+  padding: 2px;
+}
