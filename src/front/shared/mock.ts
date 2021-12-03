@@ -71,6 +71,7 @@ export class BackMocker {
   private plan: PlanTablePresentationData;
   private devices: DevicePresentationData[];
   private intervalId: ReturnType<typeof setInterval>;
+  private interval: number = 5000;
 
   constructor() {}
 
@@ -105,7 +106,7 @@ export class BackMocker {
       updateDevicePresentationData(this.devices);
 
       onUpdateCallback(this.devices);
-    }, 2000);
+    }, this.interval);
   }
 
   stopGrowth() {
@@ -292,7 +293,7 @@ function updateDevicePresentationData(devices: DevicePresentationData[]) {
     if (element.value) {
       element.value = `${getRandomInt(100)}`;
     }
-    if (element.active) {
+    if (element.active !== undefined) {
       element.active = getRandomInt(2) == 0 ? true : false;
     }
   });

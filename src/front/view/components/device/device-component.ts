@@ -59,7 +59,7 @@ export class DeviceComponent extends BaseComponent {
       this.additionalValue.setText("Value: -");
     }
 
-    if (data.active) {
+    if (data.active !== undefined) {
       this.element.classList.toggle("device__active", data.active);
       this.activeState.setText(`Active: ${data.active ? "yes" : "no"}`);
     } else {
