@@ -46,9 +46,22 @@ export class mockPresentationData {
         "humidifier",
         "illumination",
         "illumination",
-        "temperature_sensor",
-        "temperature_sensor_active",
+        "temperature sensor",
+        "active temperature sensor",
         "nutritioner",
+      ],
+    },
+    {
+      name: "all in one",
+      devices: [
+        "heater",
+        "humidifier",
+        "illumination",
+        "nutritioner",
+        "temperature sensor",
+        "active humidity sensor",
+        "illumination sensor",
+        "active pH sensor",
       ],
     },
   ];
@@ -124,15 +137,28 @@ class DevicePresentationDataDirector {
         .randomValue()
         .randomActive();
     } else if (name == "humidifier") {
-      this.builder.addId().addType("humidifier").randomActive();
+      this.builder
+        .addType("humidifier")
+        .addIcon(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><rect x="4.256" y="3.689" width="490.804" height="493.401" style="fill: rgb(0, 153, 255);"/></svg>'
+        )
+        .randomActive();
     } else if (name == "nutritioner") {
-      this.builder.addId().addType("nutritioner").randomActive();
+      this.builder
+        .addType("nutritioner")
+        .addIcon(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><rect x="4.256" y="3.689" width="490.804" height="493.401" style="fill: rgb(87, 57, 0);"/></svg>'
+        )
+        .randomActive();
     } else if (name == "illumination") {
       this.builder
         .addType("illumination")
+        .addIcon(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><rect x="4.256" y="3.689" width="490.804" height="493.401" style="fill: rgb(217, 255, 0);"/><rect x="69.177" y="72.505" width="357.066" height="349.276" style=""/></svg>'
+        )
         .addValueName("percents of daylight")
         .randomValue();
-    } else if (name == "temperature_sensor") {
+    } else if (name == "temperature sensor") {
       this.builder
         .addIcon(
           `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
@@ -142,7 +168,7 @@ class DevicePresentationDataDirector {
         .addType("temperature sensor")
         .addValueName("DegC")
         .randomValue();
-    } else if (name == "temperature_sensor_active") {
+    } else if (name == "active temperature sensor") {
       this.builder
         .addType("active temperature sensor")
         .addIcon(
@@ -151,14 +177,50 @@ class DevicePresentationDataDirector {
         </svg>`
         )
         .randomActive();
-    } else if (name == "illumination_sensor") {
+    } else if (name == "humidity sensor") {
       this.builder
-        .addType("illumination sensor")
-        .addValueName("percents_of_daylight")
+        .addType("humidity sensor")
+        .addIcon(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><ellipse style="fill: rgb(0, 153, 255);" cx="250.381" cy="249.542" rx="243.509" ry="244.051"/></svg>'
+        )
+        .addValueName("percent")
         .randomValue();
-    } /*else if {
-      result = this.builder.addId().addType("humidity sensor").addIcon('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><ellipse style="fill: rgb(0, 153, 255);" cx="250.381" cy="249.542" rx="243.509" ry="244.051"/></svg>').addValueName('percent').randomValue()
-    } */
+    } else if (name == "active humidity sensor") {
+      this.builder
+        .addType("active humidity sensor")
+        .addIcon(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><ellipse style="fill: rgb(0, 153, 255);" cx="250.381" cy="249.542" rx="243.509" ry="244.051"/></svg>'
+        )
+        .randomActive();
+    } else if (name == "pH sensor") {
+      this.builder
+        .addIcon("pH sensor")
+        .addIcon(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><ellipse style="fill: rgb(87, 57, 0);" cx="250.381" cy="249.542" rx="243.509" ry="244.051"/></svg>'
+        )
+        .addValueName("pH")
+        .randomValue();
+    } else if (name == "active pH sensor") {
+      this.builder
+        .addType("active pH sensor")
+        .addIcon(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><ellipse style="fill: rgb(87, 57, 0);" cx="250.381" cy="249.542" rx="243.509" ry="244.051"/></svg>'
+        )
+        .randomActive();
+    } else if (name == "illumination sensor") {
+      this.builder
+        .addIcon(
+          '<svg xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com" viewBox="0 0 500 500"><path d="M 150.667 117.667 m -249.722 0 a 249.722 249.722 0 1 0 499.444 0 a 249.722 249.722 0 1 0 -499.444 0 Z M 150.667 117.667 m -149.833 0 a 149.833 149.833 0 0 1 299.666 0 a 149.833 149.833 0 0 1 -299.666 0 Z" style="fill: rgb(217, 255, 0);" transform="matrix(-0.79052, 0.612436, -0.612436, -0.79052, 441.006739, 253.540604)" bx:shape="ring 150.667 117.667 149.833 149.833 249.722 249.722 1@03e62478"/><ellipse style="" cx="249.839" cy="254.424" rx="152.939" ry="155.651"/></svg>'
+        )
+        .addValueName("percent of daylight")
+        .randomValue();
+    } else if (name == "active illumination sensor") {
+      this.builder
+        .addIcon(
+          '<svg xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com" viewBox="0 0 500 500"><path d="M 150.667 117.667 m -249.722 0 a 249.722 249.722 0 1 0 499.444 0 a 249.722 249.722 0 1 0 -499.444 0 Z M 150.667 117.667 m -149.833 0 a 149.833 149.833 0 0 1 299.666 0 a 149.833 149.833 0 0 1 -299.666 0 Z" style="fill: rgb(217, 255, 0);" transform="matrix(-0.79052, 0.612436, -0.612436, -0.79052, 441.006739, 253.540604)" bx:shape="ring 150.667 117.667 149.833 149.833 249.722 249.722 1@03e62478"/><ellipse style="" cx="249.839" cy="254.424" rx="152.939" ry="155.651"/></svg>'
+        )
+        .randomActive();
+    }
 
     return this.builder.getResult();
   }
