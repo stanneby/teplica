@@ -1,6 +1,9 @@
 const path = require("path");
 var InlineChunkHtmlPlugin = require("inline-chunk-html-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HTMLInlineCSSWebpackPlugin =
+  require("html-inline-css-webpack-plugin").default;
 
 module.exports = {
   entry: {
@@ -14,6 +17,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
         test: /\.[tj]s$/,
         use: "ts-loader",
         exclude: /node_modules/,
@@ -24,11 +31,16 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+    }),
     new HtmlWebpackPlugin({
       inject: true,
       inlineSource: ".(js|css)$",
       chunks: ["front"],
+      template: "./src/front/index.html",
     }),
+    new HTMLInlineCSSWebpackPlugin(),
     new InlineChunkHtmlPlugin(HtmlWebpackPlugin, ["front"]),
   ],
   target: "node",

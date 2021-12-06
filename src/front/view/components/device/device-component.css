@@ -1,0 +1,105 @@
+.device {
+  position: absolute;
+}
+
+.device_type {
+  position: absolute;
+}
+
+.device_value-name {
+  position: absolute;
+  top: 25px;
+}
+
+.device_additional-value {
+  position: absolute;
+  top: 50px;
+}
+
+.device_active-state {
+  position: absolute;
+  top: 75px;
+}
+
+.device_value {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+
+  color: white;
+}
+
+.device_icon {
+  position: absolute;
+
+  width: 30px;
+  height: 30px;
+}
+
+.device_info-container {
+  position: absolute;
+  z-index: 3;
+  top: 40px;
+
+  display: none;
+  padding: 3px;
+
+  width: 300px;
+  height: 100px;
+  background-color: rgb(224, 224, 224);
+}
+
+.device_icon:hover + .device_info-container {
+  display: block;
+}
+
+@keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.device__active svg {
+  -webkit-animation: flickerAnimation 1s infinite;
+  -moz-animation: flickerAnimation 1s infinite;
+  -o-animation: flickerAnimation 1s infinite;
+  animation: flickerAnimation 1s infinite;
+}
