@@ -1,6 +1,10 @@
-INSTALLATION GUIDE
+# Teplica
 
-In order for this app to work, you must have NodeJS and npm installed.
+An app for managment of hydraponic growth environment.
+
+## INSTALLATION GUIDE
+
+In order for this app to work, you must have NodeJS and npm installed on your machine.
 
 After installation of NodeJs and npm type
 
