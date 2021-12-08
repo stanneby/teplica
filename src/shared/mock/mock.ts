@@ -1,9 +1,8 @@
-import { defaults } from "../../shared/defaults";
-import { IView } from "../view/view-interface";
+import { defaults } from "../defaults";
 import {
   DevicePresentationData,
   PlanTablePresentationData,
-} from "./common-types";
+} from "../../front/shared/common-types";
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
@@ -67,79 +66,7 @@ export class mockPresentationData {
   ];
 }
 
-export class FrontMocker {
-  protected plan: PlanTablePresentationData;
-  protected devices: DevicePresentationData[];
-  protected intervalId: ReturnType<typeof setInterval>;
-  protected interval: number = 5000;
-
-  constructor() {}
-
-  getPlanTables(): PlanTablePresentationData[] {
-    return mockPresentationData.mockPlanTablePresentationData;
-  }
-
-  setPlan(name: string) {
-    this.plan = mockPresentationData.mockPlanTablePresentationData.find(
-      (element) => element.name == name
-    );
-  }
-
-  startGrowth(onUpdateCallback: (data: DevicePresentationData[]) => IView) {
-    this.devices = [];
-
-    this.plan.devices.forEach((device) => {
-      this.devices.push(new DevicePresentationDataDirector().create(device));
-    });
-
-    // this.intervalId = setInterval(() => {
-    //   for (let i = 0; i < this.devices.length; i++) {
-    //     updateDevicePresentationData(this.devices[i]);
-    //   }
-
-    //   // onUpdateCallback(newDevices);
-    // }, 2000);
-
-    onUpdateCallback(this.devices);
-
-    this.intervalId = setInterval(() => {
-      updateDevicePresentationData(this.devices);
-
-      onUpdateCallback(this.devices);
-    }, this.interval);
-  }
-
-  stopGrowth() {
-    this.devices = [];
-    clearInterval(this.intervalId);
-  }
-}
-
-export class BackMocker extends FrontMocker {
-  startGrowth(onUpdateCallback: (data: DevicePresentationData[]) => void) {
-    this.devices = [];
-
-    this.plan.devices.forEach((device) => {
-      this.devices.push(new DevicePresentationDataDirector().create(device));
-    });
-
-    // this.intervalId = setInterval(() => {
-    //   for (let i = 0; i < this.devices.length; i++) {
-    //     updateDevicePresentationData(this.devices[i]);
-    //   }
-
-    //   // onUpdateCallback(newDevices);
-    // }, 2000);
-
-    this.intervalId = setInterval(() => {
-      updateDevicePresentationData(this.devices);
-
-      onUpdateCallback(this.devices);
-    }, this.interval);
-  }
-}
-
-class DevicePresentationDataDirector {
+export class DevicePresentationDataDirector {
   private builder: DevicePresentationDataBuilder =
     new DevicePresentationDataBuilder();
 
@@ -312,7 +239,9 @@ class DevicePresentationDataBuilder extends DevicePresentationDataRandomizer {
   }
 }
 
-function updateDevicePresentationData(devices: DevicePresentationData[]) {
+export function updateDevicePresentationData(
+  devices: DevicePresentationData[]
+) {
   devices.forEach((element) => {
     if (element.value) {
       element.value = `${getRandomInt(100)}`;

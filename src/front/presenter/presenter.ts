@@ -1,5 +1,6 @@
 import { defaults } from "../../shared/defaults";
-import { FrontMocker, mockPresentationData } from "../shared/mock";
+import { mockPresentationData } from "../../shared/mock/mock";
+import { FrontMocker } from "../../shared/mock/mockers";
 import { IView } from "../view/view-interface";
 import { IPresenter } from "./presenter-interface";
 
