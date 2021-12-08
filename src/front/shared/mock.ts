@@ -67,11 +67,11 @@ export class mockPresentationData {
   ];
 }
 
-export class BackMocker {
-  private plan: PlanTablePresentationData;
-  private devices: DevicePresentationData[];
-  private intervalId: ReturnType<typeof setInterval>;
-  private interval: number = 5000;
+export class FrontMocker {
+  protected plan: PlanTablePresentationData;
+  protected devices: DevicePresentationData[];
+  protected intervalId: ReturnType<typeof setInterval>;
+  protected interval: number = 5000;
 
   constructor() {}
 
@@ -112,6 +112,30 @@ export class BackMocker {
   stopGrowth() {
     this.devices = [];
     clearInterval(this.intervalId);
+  }
+}
+
+export class BackMocker extends FrontMocker {
+  startGrowth(onUpdateCallback: (data: DevicePresentationData[]) => void) {
+    this.devices = [];
+
+    this.plan.devices.forEach((device) => {
+      this.devices.push(new DevicePresentationDataDirector().create(device));
+    });
+
+    // this.intervalId = setInterval(() => {
+    //   for (let i = 0; i < this.devices.length; i++) {
+    //     updateDevicePresentationData(this.devices[i]);
+    //   }
+
+    //   // onUpdateCallback(newDevices);
+    // }, 2000);
+
+    this.intervalId = setInterval(() => {
+      updateDevicePresentationData(this.devices);
+
+      onUpdateCallback(this.devices);
+    }, this.interval);
   }
 }
 

@@ -1,4 +1,6 @@
 import { IncomingMessage, ServerResponse } from "http";
+import { BackMocker, FrontMocker } from "../front/shared/mock";
+import { ReceiverTransmitterBack } from "./presenter/rt-back";
 
 var http = require("http");
 var fs = require("fs");
@@ -66,15 +68,10 @@ http
   .listen(8125);
 console.log("Server running at http://127.0.0.1:8125/");
 
-const wss = new WebSocket.Server({ port: 8080 });
-
-wss.on("connection", function connection(ws: WebSocket) {
-  console.log("connection attempted");
-  // Wire up logic for the message event (when a client sends something)
-  ws.addEventListener("message", function incoming(e: MessageEvent) {
-    console.log("received: %s", e.data);
-  });
-
-  // Send a message
-  ws.send("Hello client!");
-});
+let backrt = new ReceiverTransmitterBack(
+  () => {},
+  () => {}
+);
+let testMocker = new BackMocker();
+testMocker.setPlan("roses");
+testMocker.startGrowth(backrt.sendDeviceUpdate.bind(backrt));

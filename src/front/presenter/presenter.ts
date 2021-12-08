@@ -1,11 +1,11 @@
 import { defaults } from "../../shared/defaults";
-import { BackMocker, mockPresentationData } from "../shared/mock";
+import { FrontMocker, mockPresentationData } from "../shared/mock";
 import { IView } from "../view/view-interface";
 import { IPresenter } from "./presenter-interface";
 
 export class Presenter implements IPresenter {
   private view: IView;
-  private mocker: BackMocker = new BackMocker();
+  private mocker: FrontMocker = new FrontMocker();
 
   constructor() {}
 
