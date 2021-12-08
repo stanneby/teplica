@@ -1,5 +1,8 @@
-import { DevicePresentationData } from "../../front/shared/common-types";
-import { JSONWrapper, UpdateDevicesJSONWrapper } from "../../shared/rt-types";
+import {
+  DevicePresentationData,
+  PlanTablePresentationData,
+} from "../../front/shared/common-types";
+import { Message, RequestType } from "../../shared/rt-types";
 
 const WebSocket = require("ws");
 
@@ -7,8 +10,8 @@ export class ReceiverTransmitterBack {
   private connections: WebSocket[] = [];
 
   constructor(
-    onStartGrothCallback: (name: string) => void,
-    onEndGrowthCallback: () => void
+    onStartGrowthCallback: (name: string) => void,
+    onStopGrowthCallback: () => void
   ) {
     const wss = new WebSocket.Server({ port: 8080 });
 
@@ -18,7 +21,14 @@ export class ReceiverTransmitterBack {
         this.connections.push(ws);
 
         ws.addEventListener("message", function incoming(e: MessageEvent) {
-          console.log("received: %s", e.data);
+          let message = JSON.parse(e.data) as Message;
+          if (message.type) {
+            if (message.type == RequestType.StartGrowth) {
+              onStartGrowthCallback(message.data);
+            } else if (message.type == RequestType.StopGrowth) {
+              onStopGrowthCallback();
+            }
+          }
         });
       }.bind(this)
     );
@@ -27,9 +37,21 @@ export class ReceiverTransmitterBack {
   sendDeviceUpdate(devices: DevicePresentationData[]): ReceiverTransmitterBack {
     this.connections.forEach((ws) => {
       ws.send(
-        JSON.stringify(new UpdateDevicesJSONWrapper(devices) as JSONWrapper)
+        JSON.stringify(
+          new Message(RequestType.UpdateDevices, JSON.stringify(devices))
+        )
       );
     });
     return this;
+  }
+
+  sendPlans(plans: PlanTablePresentationData[]) {
+    this.connections.forEach((ws) => {
+      ws.send(
+        JSON.stringify(
+          new Message(RequestType.GivePlans, JSON.stringify(plans))
+        )
+      );
+    });
   }
 }

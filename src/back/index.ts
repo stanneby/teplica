@@ -73,5 +73,10 @@ let backrt = new ReceiverTransmitterBack(
   () => {}
 );
 let testMocker = new BackMocker();
-testMocker.setPlan("roses");
-testMocker.startGrowth(backrt.sendDeviceUpdate.bind(backrt));
+
+setInterval(() => {
+  backrt.sendPlans(testMocker.getPlanTables());
+}, 5000);
+
+// testMocker.setPlan("roses");
+// testMocker.startGrowth(backrt.sendDeviceUpdate.bind(backrt));
