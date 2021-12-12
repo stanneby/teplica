@@ -30,4 +30,11 @@ export class ButtonGroupComponent extends BaseComponent {
     });
     return this;
   }
+
+  deactivateByID(id: number) {
+    if (id < this.buttons.length && id >= 0) {
+      this.activateAll();
+      this.buttons[id].deactivate();
+    }
+  }
 }

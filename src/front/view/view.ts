@@ -26,9 +26,9 @@ export class View implements IView {
 
   setMode(mode: number): IView {
     if (mode) {
-      this.window.setPage(new GrowthPage());
+      this.window.setPage(new GrowthPage(), 0);
     } else {
-      this.window.setPage(new TablesPage());
+      this.window.setPage(new TablesPage(), 1);
     }
     return this;
   }
