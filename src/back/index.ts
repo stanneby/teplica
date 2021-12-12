@@ -1,4 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
+import { DevicePresentationData } from "../front/shared/common-types";
 import { BackMocker } from "../shared/mock/mockers";
 import { ReceiverTransmitterBack } from "./presenter/rt-back";
 
@@ -68,15 +69,20 @@ http
   .listen(8125);
 console.log("Server running at http://127.0.0.1:8125/");
 
-let backrt = new ReceiverTransmitterBack(
-  () => {},
-  () => {}
-);
 let testMocker = new BackMocker();
 
-setInterval(() => {
-  backrt.sendPlans(testMocker.getPlanTables());
-}, 5000);
+let backrt = new ReceiverTransmitterBack(
+  (name: string) => {
+    testMocker.setPlan(name);
+    testMocker.startGrowth((devices: DevicePresentationData[]) => {
+      backrt.sendDeviceUpdate(devices);
+    });
+  },
+  () => {
+    testMocker.stopGrowth();
+    backrt.sendPlans(testMocker.getPlanTables());
+  }
+);
 
 // testMocker.setPlan("roses");
 // testMocker.startGrowth(backrt.sendDeviceUpdate.bind(backrt));

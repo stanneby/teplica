@@ -59,6 +59,7 @@ export class BackMocker extends Mocker {
       this.devices.push(new DevicePresentationDataDirector().create(device));
     });
 
+    onUpdateCallback(this.devices);
     this.intervalId = setInterval(() => {
       updateDevicePresentationData(this.devices);
 

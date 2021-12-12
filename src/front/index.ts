@@ -19,6 +19,7 @@ window.onload = async () => {
   view.start();
 };
 
+/*
 let frontrt = new ReceiverTransmitterFront(
   (plans: PlanTablePresentationData[]) => {
     console.log(plans);
@@ -27,3 +28,4 @@ let frontrt = new ReceiverTransmitterFront(
     console.log(devices);
   }
 );
+*/

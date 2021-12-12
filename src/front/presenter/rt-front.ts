@@ -1,3 +1,4 @@
+import { CONNECTING } from "ws";
 import { Message, RequestType } from "../../shared/rt-types";
 import {
   DevicePresentationData,
@@ -30,10 +31,26 @@ export class ReceiverTransmitterFront {
   }
 
   sendStarted(name: string) {
-    this.ws.send(JSON.stringify(new Message(RequestType.StartGrowth, name)));
+    if (this.ws.readyState === 1) {
+      console.log("state ready");
+      this.ws.send(JSON.stringify(new Message(RequestType.StartGrowth, name)));
+    } else {
+      setTimeout(() => {
+        this.ws.send(
+          JSON.stringify(new Message(RequestType.StartGrowth, name))
+        );
+      }, 500);
+    }
   }
 
   sendStopped() {
-    this.ws.send(JSON.stringify(new Message(RequestType.StopGrowth, "")));
+    if (this.ws.readyState === 1) {
+      console.log("state ready");
+      this.ws.send(JSON.stringify(new Message(RequestType.StopGrowth, "")));
+    } else {
+      setTimeout(() => {
+        this.ws.send(JSON.stringify(new Message(RequestType.StopGrowth, "")));
+      }, 500);
+    }
   }
 }
