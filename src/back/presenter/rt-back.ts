@@ -11,7 +11,8 @@ export class ReceiverTransmitterBack {
 
   constructor(
     onStartGrowthCallback: (name: string) => void,
-    onStopGrowthCallback: () => void
+    onStopGrowthCallback: () => void,
+    onConnectionCallback: () => void
   ) {
     const wss = new WebSocket.Server({ port: 8080 });
 
@@ -30,11 +31,15 @@ export class ReceiverTransmitterBack {
             }
           }
         });
+
+        onConnectionCallback();
       }.bind(this)
     );
   }
 
-  sendDeviceUpdate(devices: DevicePresentationData[]): ReceiverTransmitterBack {
+  broadcastDeviceUpdate(
+    devices: DevicePresentationData[]
+  ): ReceiverTransmitterBack {
     this.connections.forEach((ws) => {
       ws.send(
         JSON.stringify(
@@ -45,7 +50,7 @@ export class ReceiverTransmitterBack {
     return this;
   }
 
-  sendPlans(plans: PlanTablePresentationData[]) {
+  broadcastPlans(plans: PlanTablePresentationData[]) {
     this.connections.forEach((ws) => {
       ws.send(
         JSON.stringify(

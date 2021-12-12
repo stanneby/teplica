@@ -31,7 +31,7 @@ export class Presenter implements IPresenter {
   }
 
   notifyOfCreation(): IPresenter {
-    this.rt.sendStopped();
+    // this.rt.sendStopped();
     return this;
   }
   stopGrowth(): IPresenter {
@@ -40,7 +40,6 @@ export class Presenter implements IPresenter {
   }
   startGrowth(name: string): IPresenter {
     this.rt.sendStarted(name);
-    this.view.setMode(1);
     return this;
   }
 }
