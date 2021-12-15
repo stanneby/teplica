@@ -2,6 +2,7 @@ import { IncomingMessage, ServerResponse } from "http";
 import { DevicePresentationData } from "../front/shared/common-types";
 import { BackMocker, Mocker } from "../shared/mock/mockers";
 import { Model } from "./model/model";
+import { BackPresenter } from "./presenter/b-presenter";
 import { ReceiverTransmitterBack } from "./presenter/rt-back";
 
 var http = require("http");
@@ -70,33 +71,10 @@ http
   .listen(8125);
 console.log("Server running at http://127.0.0.1:8125/");
 
-let testMocker = new BackMocker();
-
-let backrt = new ReceiverTransmitterBack(
-  (name: string) => {
-    testMocker.setPlan(name);
-    testMocker.startGrowth((devices: DevicePresentationData[]) => {
-      backrt.broadcastDeviceUpdate(devices);
-    });
-  },
-  () => {
-    testMocker.stopGrowth();
-    backrt.broadcastPlans(testMocker.getPlanTables());
-  },
-  () => {
-    const mode = testMocker.getMode();
-    if (mode == 1) {
-      backrt.broadcastDeviceUpdate(testMocker.getDevices());
-    } else if (mode == 0) {
-      backrt.broadcastPlans(testMocker.getPlanTables());
-    }
-  }
-);
-
 const run = async () => {
   let model = new Model();
   await model.init();
-  console.log(model.getPlans()[0].entries);
+  let presenter = new BackPresenter(model);
 };
 
 run();
