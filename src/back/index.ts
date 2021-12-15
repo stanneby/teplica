@@ -1,6 +1,7 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { DevicePresentationData } from "../front/shared/common-types";
 import { BackMocker, Mocker } from "../shared/mock/mockers";
+import { Model } from "./model/model";
 import { ReceiverTransmitterBack } from "./presenter/rt-back";
 
 var http = require("http");
@@ -91,6 +92,14 @@ let backrt = new ReceiverTransmitterBack(
     }
   }
 );
+
+const run = async () => {
+  let model = new Model();
+  await model.init();
+  console.log(model.getPlans()[0].entries);
+};
+
+run();
 
 // testMocker.setPlan("roses");
 // testMocker.startGrowth(backrt.sendDeviceUpdate.bind(backrt));

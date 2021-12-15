@@ -1,7 +1,16 @@
 export enum DeviceType {
-  EnvDevice,
-  Sensor,
-  ActiveSensor,
+  IlluminationEnvDevice = 1,
+  TemperatureEnvDevice,
+  HumidityEnvDevice,
+  PHEnvDevice,
+  IllumintionSensor,
+  TemperatureSensor,
+  HumiditySensor,
+  PHSensor,
+  IlluminationActiveSensor,
+  TemperatureActiveSensor,
+  HumidityActiveSensor,
+  PHActiveSensor,
 }
 
 export type DevicePayload = {
@@ -11,7 +20,7 @@ export type DevicePayload = {
 
 export interface IDevice {
   readonly id: string;
-  readonly type: string;
+  readonly type: DeviceType;
   readonly measureUnit: string;
   readonly x: number;
   readonly y: number;

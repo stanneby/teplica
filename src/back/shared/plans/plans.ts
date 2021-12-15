@@ -1,4 +1,6 @@
-type PlanEntry = {
+import { DeviceType } from "../../model/devices/device-interface";
+
+export type PlanEntry = {
   startTimestamp: number;
   ifEnd: boolean;
   temperature: number;
@@ -10,4 +12,5 @@ type PlanEntry = {
 export type Plan = {
   name: string;
   entries: PlanEntry[];
+  deviceTypes: DeviceType[];
 };

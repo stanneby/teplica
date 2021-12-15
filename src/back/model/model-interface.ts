@@ -1,11 +1,11 @@
-import { Plan } from "../shared/common-types";
+import { Plan } from "../shared/plans/plans";
 import { IDevice } from "./devices/device-interface";
 
 export interface IModel {
-  init(): IModel;
+  init(): Promise<void>;
   startGrowth(planName: string): IModel;
   stopGrowth(): IModel;
-  getTables(): Plan[];
+  getPlans(): Plan[];
 
   addDeviceUpdateListener(callback: (devices: IDevice[]) => void): IModel;
   addInternalStopGrowthListener(callback: () => void): IModel;
