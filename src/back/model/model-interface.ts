@@ -1,7 +1,14 @@
-export interface IModel {
-  startGrowth(): IModel;
-  stopGrowth(): IModel;
+import { Plan } from "../shared/common-types";
+import { IDevice } from "./devices/device-interface";
 
-  addDeviceUpdateListener(callback: () => void): IModel;
-  addGrowthStartListener(callback: () => void): IModel;
+export interface IModel {
+  init(): IModel;
+  startGrowth(planName: string): IModel;
+  stopGrowth(): IModel;
+  getTables(): Plan[];
+
+  addDeviceUpdateListener(callback: (devices: IDevice[]) => void): IModel;
+  addInternalStopGrowthListener(callback: () => void): IModel;
+  clearDeviceUpdateListeners(): IModel;
+  clearInternalStopGrowthListeners(): IModel;
 }

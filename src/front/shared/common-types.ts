@@ -1,5 +1,3 @@
-import { TimePeriod } from "../../shared/common-types";
-
 export type PresentationData = {};
 
 interface IDevicePresentationData extends PresentationData {
@@ -16,7 +14,6 @@ interface IDevicePresentationData extends PresentationData {
 export type DevicePresentationData = IDevicePresentationData;
 
 export type PlanTableRowData = {
-  period: TimePeriod;
   temperature: number;
   humidity: number;
   illumination: number;

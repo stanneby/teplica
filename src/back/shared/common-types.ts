@@ -1,15 +1,13 @@
-export enum DeviceType {
-  EnvDevice,
-  Sensor,
-  ActiveSensor,
-}
+type PlanEntry = {
+  startTimestamp: number;
+  ifEnd: boolean;
+  temperature: number;
+  illumination: number;
+  humidity: number;
+  pH: number;
+};
 
-interface IDevice {
-  readonly type: string;
-
-  start(): IDevice;
-  stop(): IDevice;
-  getValue(): number | boolean;
-}
-
-export interface EnvDevice extends IDevice {}
+export type Plan = {
+  name: string;
+  entries: PlanEntry[];
+};
