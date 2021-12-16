@@ -4,8 +4,8 @@ import {
   PlanTablePresentationData,
 } from "../../front/shared/common-types";
 
-function getRandomInt(max: number) {
-  return Math.floor(Math.random() * max);
+export function getRandomInt(max: number, min: number = 0) {
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
 export function generateRandomPlanTableData(): PlanTablePresentationData[] {

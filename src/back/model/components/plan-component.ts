@@ -13,6 +13,12 @@ export class PlansComponent {
   getPlans(): Plan[] {
     return this.plans;
   }
+
+  findPlanByName(planName: string) {
+    return this.plans.find((plan) => {
+      return plan.name == planName;
+    });
+  }
 }
 
 class PlansMocker {
