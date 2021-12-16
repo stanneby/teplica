@@ -39,7 +39,7 @@ export class mockPresentationData {
       ],
     },
     {
-      name: "joe mama",
+      name: "Joe Mama",
       devices: [
         "heater",
         "humidifier",

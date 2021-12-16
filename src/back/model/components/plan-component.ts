@@ -19,9 +19,10 @@ class PlansMocker {
   getPlans(): Plan[] {
     let plans: Plan[] = [];
 
-    plans.push(constructPlan("potato", 10, [1, 2, 3]));
-    plans.push(constructPlan("rose", 7, [1, 2, 3, 6, 7]));
-    plans.push(constructPlan("Jow Mama", 20, [1, 2, 3, 4, 5, 6, 7]));
+    plans.push(constructPlan("potatos", 10, [1, 2, 3]));
+    plans.push(constructPlan("roses", 7, [1, 2, 3, 6, 7]));
+    plans.push(constructPlan("Joe Mama", 20, [1, 1, 1, 2, 3, 4, 5, 6, 7]));
+    plans.push(constructPlan("all in one", 20, [1, 1, 1, 2, 3, 4, 5, 6, 7]));
 
     return plans;
   }

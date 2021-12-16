@@ -19,15 +19,18 @@ export class BackPresenter implements IBackPresenter {
       },
       () => {
         this.testMocker.stopGrowth();
-        this.backrt.broadcastPlans(this.testMocker.getPlanTables());
+        this.backrt.broadcastPlans(
+          new BackTranslator().translate(this.model.getPlans())
+        );
       },
       () => {
         const mode = this.testMocker.getMode();
         if (mode == 1) {
           this.backrt.broadcastDeviceUpdate(this.testMocker.getDevices());
         } else if (mode == 0) {
-          console.log(new BackTranslator().translate(this.model.getPlans()));
-          this.backrt.broadcastPlans(this.testMocker.getPlanTables());
+          this.backrt.broadcastPlans(
+            new BackTranslator().translate(this.model.getPlans())
+          );
         }
       }
     );
