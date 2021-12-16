@@ -1,6 +1,6 @@
 import { Plan } from "../shared/plans/plans";
 import { PlansComponent } from "./components/plan-component";
-import { IDevice } from "./devices/device-interface";
+import { IDevice } from "../shared/devices/device-interface";
 import { IModel } from "./model-interface";
 
 export class Model implements IModel {

@@ -1,4 +1,4 @@
-import { DeviceType } from "../../model/devices/device-interface";
+import { DeviceType } from "../devices/device-interface";
 
 export type PlanEntry = {
   startTimestamp: number;

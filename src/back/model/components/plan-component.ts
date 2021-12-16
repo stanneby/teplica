@@ -1,6 +1,6 @@
 import { PlanEntryDecorator } from "../../shared/plans/plan-wrappers";
 import { Plan, PlanEntry } from "../../shared/plans/plans";
-import { DeviceType } from "../devices/device-interface";
+import { DeviceType } from "../../shared/devices/device-interface";
 
 export class PlansComponent {
   private plans: Plan[] = [];

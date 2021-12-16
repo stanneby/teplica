@@ -2,13 +2,14 @@ import { DevicePresentationData } from "../../front/shared/common-types";
 import { BackMocker } from "../../shared/mock/mockers";
 import { IModel } from "../model/model-interface";
 import { IBackPresenter } from "./b-presenter-interface";
+import { BackTranslator } from "./back-translate";
 import { ReceiverTransmitterBack } from "./rt-back";
 
 export class BackPresenter implements IBackPresenter {
   private backrt: ReceiverTransmitterBack;
   private testMocker = new BackMocker();
 
-  constructor(model: IModel) {
+  constructor(private model: IModel) {
     this.backrt = new ReceiverTransmitterBack(
       (name: string) => {
         this.testMocker.setPlan(name);
@@ -25,6 +26,7 @@ export class BackPresenter implements IBackPresenter {
         if (mode == 1) {
           this.backrt.broadcastDeviceUpdate(this.testMocker.getDevices());
         } else if (mode == 0) {
+          console.log(new BackTranslator().translate(this.model.getPlans()));
           this.backrt.broadcastPlans(this.testMocker.getPlanTables());
         }
       }

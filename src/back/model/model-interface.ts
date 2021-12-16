@@ -1,5 +1,5 @@
 import { Plan } from "../shared/plans/plans";
-import { IDevice } from "./devices/device-interface";
+import { IDevice } from "../shared/devices/device-interface";
 
 export interface IModel {
   init(): Promise<void>;
