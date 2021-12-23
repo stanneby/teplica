@@ -38,6 +38,7 @@ export class Model implements IModel {
   }
   stopGrowth(): IModel {
     clearInterval(this.checkInterval);
+    this.clearDeviceUpdateListeners();
 
     return this;
   }
