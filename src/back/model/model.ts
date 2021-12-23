@@ -3,10 +3,13 @@ import { PlansComponent } from "./components/plan-component";
 import { IDevice } from "../shared/devices/device-interface";
 import { IModel } from "./model-interface";
 import { DevicesComponent } from "./components/device-component";
+import { Environment } from "../shared/environment/environment";
+import { TimerComponent } from "./components/timer-component";
 
 export class Model implements IModel {
   private plansComponent: PlansComponent;
   private devicesComponent: DevicesComponent;
+  private timerComponent: TimerComponent;
 
   private checkInterval: NodeJS.Timer;
   private timeout: number = 5000;
@@ -15,24 +18,41 @@ export class Model implements IModel {
   constructor() {
     this.plansComponent = new PlansComponent();
     this.devicesComponent = new DevicesComponent();
+    this.timerComponent = new TimerComponent();
   }
 
   async init(): Promise<void> {
     await this.plansComponent.loadPlansFromDefaultFile();
   }
   startGrowth(planName: string): IModel {
-    this.devicesComponent.reset(
-      this.plansComponent.findPlanByName(planName).deviceTypes
-    );
+    Environment.getInstance().start();
+    this.plansComponent.reset(planName);
+    this.timerComponent.reset();
+    this.devicesComponent.reset(this.plansComponent.getPlan().deviceTypes);
 
-    let triggerCallbacks = () => {
+    // console.log(this.plansComponent.getPlan().entries[0]);
+
+    let cycleProcess = () => {
+      // console.log(!this.timerComponent.check(this.plansComponent.getEntry()));
+      if (!this.timerComponent.check(this.plansComponent.getEntry())) {
+        let entry = this.timerComponent.chooseEntry(
+          this.plansComponent.getPlan()
+        );
+        if (!entry) {
+          // this.stopGrowth();
+          return;
+        }
+        this.plansComponent.setEntry(entry);
+        this.devicesComponent.alert(entry);
+      }
+      this.devicesComponent.ping();
       this.updateCallbacks.forEach((callback) => {
         callback(this.devicesComponent.getDevices());
       });
     };
 
-    triggerCallbacks();
-    this.checkInterval = setInterval(triggerCallbacks, this.timeout);
+    cycleProcess();
+    this.checkInterval = setInterval(cycleProcess, this.timeout);
 
     return this;
   }

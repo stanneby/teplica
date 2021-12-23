@@ -4,6 +4,8 @@ import { DeviceType } from "../../shared/devices/device-interface";
 
 export class PlansComponent {
   private plans: Plan[] = [];
+  private plan: Plan;
+  private entry: PlanEntry;
 
   async loadPlansFromDefaultFile(): Promise<void> {
     // for now
@@ -14,10 +16,22 @@ export class PlansComponent {
     return this.plans;
   }
 
-  findPlanByName(planName: string) {
-    return this.plans.find((plan) => {
+  reset(planName: string) {
+    this.plan = this.plans.find((plan) => {
       return plan.name == planName;
     });
+  }
+
+  getPlan() {
+    return this.plan;
+  }
+
+  getEntry() {
+    return this.entry;
+  }
+
+  setEntry(entry: PlanEntry) {
+    this.entry = entry;
   }
 }
 
@@ -25,6 +39,12 @@ class PlansMocker {
   getPlans(): Plan[] {
     let plans: Plan[] = [];
 
+    plans.push(
+      constructPlan("temperature", 10, [
+        DeviceType.TemperatureSensor,
+        DeviceType.TemperatureEnvDevice,
+      ])
+    );
     plans.push(constructPlan("potatos", 10, [1, 2, 3]));
     plans.push(constructPlan("roses", 7, [1, 2, 3, 6, 7]));
     plans.push(constructPlan("Joe Mama", 20, [1, 1, 1, 2, 3, 4, 5, 6, 7]));
@@ -50,6 +70,7 @@ function constructPlan(
 }
 
 class PlanEntryFactory {
+  private delta = 50000;
   private timestamp = 0;
   private entries: PlanEntry[] = [];
 
@@ -63,8 +84,9 @@ class PlanEntryFactory {
     let entry = {} as PlanEntry;
     entry = new PlanEntryDecorator(entry)
       .setTimestamp(this.timestamp)
+      .setEndTimeStamp(this.timestamp + this.delta)
       .getEntry();
-    this.timestamp += 5000;
+    this.timestamp += 50000;
     this.entries.push(entry);
   }
   getEntries() {

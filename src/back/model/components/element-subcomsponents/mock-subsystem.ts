@@ -1,5 +1,6 @@
 import { DeviceType } from "../../../shared/devices/device-interface";
-import { MockDevice } from "../../../shared/devices/mock-device";
+import { MockDevice } from "../../../shared/devices/mock/mock-device";
+import { PlanEntry } from "../../../shared/plans/plans";
 import { ISubcomponent } from "./subcomponent";
 
 export class MockSubcomponent implements ISubcomponent {
@@ -10,6 +11,12 @@ export class MockSubcomponent implements ISubcomponent {
     types.forEach((type) => {
       this.devices.push(new MockDevice(`${++this.currentId}`, type));
     });
+  }
+  alert(entry: PlanEntry): ISubcomponent {
+    throw new Error("Method not implemented.");
+  }
+  ping(): ISubcomponent {
+    throw new Error("Method not implemented.");
   }
 
   getDevices() {

@@ -2,6 +2,7 @@ import { DeviceType } from "../devices/device-interface";
 
 export type PlanEntry = {
   startTimestamp: number;
+  endTimestamp: number;
   ifEnd: boolean;
   temperature: number;
   illumination: number;

@@ -13,6 +13,11 @@ export class PlanEntryDecorator {
     return this;
   }
 
+  setEndTimeStamp(timestamp: number): PlanEntryDecorator {
+    this.entry.endTimestamp = timestamp;
+    return this;
+  }
+
   getEntry(): PlanEntry {
     return this.entry;
   }

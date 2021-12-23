@@ -16,6 +16,7 @@ export class BackPresenter implements IBackPresenter {
       (name: string) => {
         this.model
           .addDeviceUpdateListener((devices: IDevice[]) => {
+            // console.log(this.translator.translateDevices(devices));
             this.backrt.broadcastDeviceUpdate(
               this.translator.translateDevices(devices)
             );

@@ -123,8 +123,12 @@ export class BackTranslator {
     presentation.y = device.y;
 
     let payload = device.getPayload();
-    if (payload.value) presentation.value = `${payload.value}`;
-    if (payload.active) presentation.active = payload.active;
+    if (payload.value !== undefined)
+      presentation.value = `${Math.trunc(payload.value)}`;
+    if (payload.active !== undefined) presentation.active = payload.active;
+
+    if (device.measureUnit !== undefined)
+      presentation.valueName = device.measureUnit;
 
     let trans = BackTranslator.translationTable.find((trans) => {
       return trans.type === device.type;

@@ -1,5 +1,5 @@
-import { getRandomInt } from "../../../shared/mock/mock";
-import { DevicePayload } from "./device-interface";
+import { getRandomInt } from "../../../../shared/mock/mock";
+import { DevicePayload } from "../device-interface";
 
 export class PayloadMocker {
   get() {

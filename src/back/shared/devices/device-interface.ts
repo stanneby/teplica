@@ -26,7 +26,4 @@ export interface IDevice {
   readonly y: number;
 
   getPayload(): DevicePayload;
-
-  start(): IDevice;
-  stop(): IDevice;
 }
