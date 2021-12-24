@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "typescript",
+      "tsconfig": "tsconfig.json",
+      "problemMatcher": ["$tsc"],
+      "group": "build",
+      "label": "tsc: build - tsconfig.json"
+    },
+    {
+      "label": "Bundle",
+      "type": "shell",
+      "command": "npx webpack --config webpack.config.js",
+      "windows": {
+        "command": "npx webpack --config webpack.config.js"
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Run",
+      "type": "shell",
+      "command": "node ./dist/back.js",
+      "windows": {
+        "command": "node .//dist//back.js"
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+  ]
+}

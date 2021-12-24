@@ -1,36 +1,45 @@
-import { defaults } from "../../shared/defaults";
-import { BackMocker, mockPresentationData } from "../shared/mock";
+import { DevicePresentationDataDirector } from "../../shared/mock/mock";
+import { FrontMocker } from "../../shared/mock/mockers";
+import {
+  DevicePresentationData,
+  PlanTablePresentationData,
+} from "../shared/common-types";
 import { IView } from "../view/view-interface";
 import { IPresenter } from "./presenter-interface";
+import { ReceiverTransmitterFront } from "./rt-front";
 
 export class Presenter implements IPresenter {
   private view: IView;
-  private mocker: BackMocker = new BackMocker();
+  // private mocker: FrontMocker = new FrontMocker();
+  private rt: ReceiverTransmitterFront;
 
   constructor() {}
 
   init(view: IView): Presenter {
     this.view = view;
+    this.rt = new ReceiverTransmitterFront(
+      (plans: PlanTablePresentationData[]) => {
+        this.view.setMode(0);
+        this.view.givePlanTables(plans);
+      },
+      (devices: DevicePresentationData[]) => {
+        this.view.setMode(1);
+        this.view.updateDevices(devices);
+      }
+    );
     return this;
   }
 
   notifyOfCreation(): IPresenter {
-    console.log(this.view);
-    this.view.setMode(0);
-    this.view.givePlanTables(this.mocker.getPlanTables());
+    // this.rt.sendStopped();
     return this;
   }
   stopGrowth(): IPresenter {
-    this.mocker.stopGrowth();
-    this.view.setMode(0);
-    this.view.givePlanTables(this.mocker.getPlanTables());
+    this.rt.sendStopped();
     return this;
   }
   startGrowth(name: string): IPresenter {
-    console.log(name);
-    this.view.setMode(1);
-    this.mocker.setPlan(name);
-    this.mocker.startGrowth(this.view.updateDevices.bind(this.view));
+    this.rt.sendStarted(name);
     return this;
   }
 }
