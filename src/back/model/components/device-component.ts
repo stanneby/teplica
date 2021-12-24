@@ -39,7 +39,6 @@ export class DevicesComponent {
   }
 
   alert(entry: PlanEntry) {
-    // console.log(entry);
     this.subcomponents.forEach((subcomponent) => subcomponent.alert(entry));
     return this;
   }

@@ -33,19 +33,16 @@ export class Model implements IModel {
     console.log(this.plansComponent.getPlan().entries[0]);
 
     let cycleProcess = () => {
-      // console.log(!this.timerComponent.check(this.plansComponent.getEntry()));
-      if (!this.timerComponent.check(this.plansComponent.getEntry())) {
-        let entry = this.timerComponent.chooseEntry(
-          this.plansComponent.getPlan()
-        );
-        console.log(entry);
-        if (!entry) {
-          // this.stopGrowth();
-          return;
-        }
-        this.plansComponent.setEntry(entry);
-        this.devicesComponent.alert(entry);
+      //if (!this.timerComponent.check(this.plansComponent.getEntry())) {
+      let entry = this.timerComponent.chooseEntry(
+        this.plansComponent.getPlan()
+      );
+      if (!entry) {
+        return;
       }
+      this.plansComponent.setEntry(entry);
+      this.devicesComponent.alert(entry);
+      //}
       this.devicesComponent.ping();
       this.updateCallbacks.forEach((callback) => {
         callback(this.devicesComponent.getDevices());
@@ -58,6 +55,7 @@ export class Model implements IModel {
     return this;
   }
   stopGrowth(): IModel {
+    Environment.getInstance().stop();
     clearInterval(this.checkInterval);
     this.clearDeviceUpdateListeners();
 

@@ -19,6 +19,7 @@ export class Environment {
 
   start() {
     if (!this.started) {
+      this.reset();
       this.interval = setInterval(this.ping.bind(this), this.timeout);
     }
 
@@ -27,20 +28,53 @@ export class Environment {
 
   stop() {
     if (this.started) {
+      this.reset();
       clearInterval(this.interval);
     }
 
     this.started = false;
   }
 
+  reset() {
+    console.log("ENV RESET");
+
+    this.temperature = 30;
+    this.temperatureSources = [];
+    this.temperatureMultiplier = 0.1;
+    this.temperatureMin = -100;
+    this.temperatureMax = 100;
+    this.backgroundTemperatureChange = 3;
+
+    this.humidity = 30;
+    this.humiditySources = [];
+    this.humidityMultiplier = 0.05;
+    this.humidityMin = 0;
+    this.humidityMax = 100;
+    this.backgroundHumidityChange = 3;
+
+    this.illumination = 100;
+    this.illuminationSources = [];
+    this.illuminationMultiplier = 0.05;
+    this.illuminationMin = 0;
+    this.illuminationMax = 100;
+    this.backgroundIlluminationChange = 3;
+
+    this.pH = 3;
+    this.pHSources = [];
+    this.pHMultiplier = 0.05;
+    this.pHMin = 0;
+    this.pHMax = 8;
+    this.backgroundpHChange = 0.3;
+  }
+
   // Temperature
 
-  private temperature: number = 30;
-  private temperatureSources: (() => SourceParam)[] = [];
-  private temperatureMultiplier: number = 0.1;
-  private temperatureMin: number = -100;
-  private temperatureMax: number = 100;
-  private backgroundTemperatureChange: number = 3;
+  private temperature: number;
+  private temperatureSources: (() => SourceParam)[];
+  private temperatureMultiplier: number;
+  private temperatureMin: number;
+  private temperatureMax: number;
+  private backgroundTemperatureChange: number;
   getTemperature() {
     return this.temperature;
   }
@@ -56,12 +90,12 @@ export class Environment {
 
   // Humidity
 
-  private humidity: number = 30;
-  private humiditySources: (() => SourceParam)[] = [];
-  private humidityMultiplier: number = 0.05;
-  private humidityMin: number = 0;
-  private humidityMax: number = 100;
-  private backgroundHumidityChange: number = 3;
+  private humidity: number;
+  private humiditySources: (() => SourceParam)[];
+  private humidityMultiplier: number;
+  private humidityMin: number;
+  private humidityMax: number;
+  private backgroundHumidityChange: number;
   getHumidity() {
     return this.humidity;
   }
@@ -74,12 +108,12 @@ export class Environment {
 
   // Illumination
 
-  private illumination: number = 100;
-  private illuminationSources: (() => SourceParam)[] = [];
-  private illuminationMultiplier: number = 0.05;
-  private illuminationMin: number = 0;
-  private illuminationMax: number = 100;
-  private backgroundIlluminationChange: number = 3;
+  private illumination: number;
+  private illuminationSources: (() => SourceParam)[];
+  private illuminationMultiplier: number;
+  private illuminationMin: number;
+  private illuminationMax: number;
+  private backgroundIlluminationChange: number;
   getIllumination() {
     return this.illumination;
   }
@@ -95,12 +129,12 @@ export class Environment {
 
   // pH
 
-  private pH: number = 3;
-  private pHSources: (() => SourceParam)[] = [];
-  private pHMultiplier: number = 0.05;
-  private pHMin: number = 0;
-  private pHMax: number = 8;
-  private backgroundpHChange: number = 0.3;
+  private pH: number;
+  private pHSources: (() => SourceParam)[];
+  private pHMultiplier: number;
+  private pHMin: number;
+  private pHMax: number;
+  private backgroundpHChange: number;
   getpH() {
     return this.pH;
   }
@@ -112,6 +146,7 @@ export class Environment {
   }
 
   ping() {
+    console.log(this.temperatureSources);
     let tempChange = 0;
     this.temperatureSources.forEach((elem) => {
       let source = elem();
@@ -130,7 +165,6 @@ export class Environment {
 
       humChange += source.active ? source.value * this.humidityMultiplier : 0;
     });
-    // console.log(this.humidity);
     this.setHumidity(this.humidity + humChange - this.backgroundHumidityChange);
 
     let illLevel = 0;
