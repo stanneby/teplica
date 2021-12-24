@@ -3,7 +3,7 @@ import { PlansComponent } from "./components/plan-component";
 import { IDevice } from "../shared/devices/device-interface";
 import { IModel } from "./model-interface";
 import { DevicesComponent } from "./components/device-component";
-import { Environment } from "../shared/environment/environment";
+import { Environment } from "./environment/environment";
 import { TimerComponent } from "./components/timer-component";
 
 export class Model implements IModel {
@@ -14,6 +14,7 @@ export class Model implements IModel {
   private checkInterval: NodeJS.Timer;
   private timeout: number = 5000;
   private updateCallbacks: ((devices: IDevice[]) => void)[] = [];
+  private internalStopCallbacks: (() => void)[] = [];
 
   constructor() {
     this.plansComponent = new PlansComponent();
@@ -38,6 +39,8 @@ export class Model implements IModel {
         this.plansComponent.getPlan()
       );
       if (!entry) {
+        this.stopGrowth();
+        this.callInternalStopGrowthListeners();
         return;
       }
       this.plansComponent.setEntry(entry);
@@ -54,6 +57,7 @@ export class Model implements IModel {
 
     return this;
   }
+
   stopGrowth(): IModel {
     Environment.getInstance().stop();
     clearInterval(this.checkInterval);
@@ -72,14 +76,23 @@ export class Model implements IModel {
     return this;
   }
   addInternalStopGrowthListener(callback: () => void): IModel {
-    throw new Error("Method not implemented.");
+    this.internalStopCallbacks.push(callback);
+
+    return this;
   }
+
+  callInternalStopGrowthListeners() {
+    this.internalStopCallbacks.forEach((callback) => callback());
+  }
+
   clearDeviceUpdateListeners(): IModel {
     this.updateCallbacks = [];
 
     return this;
   }
   clearInternalStopGrowthListeners(): IModel {
-    throw new Error("Method not implemented.");
+    this.internalStopCallbacks = [];
+
+    return this;
   }
 }

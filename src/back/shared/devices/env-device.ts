@@ -1,5 +1,5 @@
-import { Environment } from "../environment/environment";
-import { SourceParam } from "../environment/sourceParam";
+import { Environment } from "../../model/environment/environment";
+import { SourceParam } from "../../model/environment/sourceParam";
 import { Device } from "./device";
 import { DevicePayload, DeviceType, IDevice } from "./device-interface";
 

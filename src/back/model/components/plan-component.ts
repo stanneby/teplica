@@ -2,14 +2,24 @@ import { PlanEntryDecorator } from "../../shared/plans/plan-wrappers";
 import { Plan, PlanEntry } from "../../shared/plans/plans";
 import { DeviceType } from "../../shared/devices/device-interface";
 
+const fs = require("fs");
+const path = require("path");
+
 export class PlansComponent {
   private plans: Plan[] = [];
   private plan: Plan;
   private entry: PlanEntry;
 
   async loadPlansFromDefaultFile(): Promise<void> {
+    let plans = fs.readFileSync(
+      path.join(__dirname, "../src/back/plans.json"),
+      "utf8"
+    );
+
+    this.plans = JSON.parse(plans) as Plan[];
+
     // for now
-    this.plans = new PlansMocker().getPlans();
+    // this.plans = new PlansMocker().getPlans();
   }
 
   getPlans(): Plan[] {

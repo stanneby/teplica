@@ -2,7 +2,7 @@ import { ActiveSensor } from "../../../shared/devices/active-sensor";
 import { DeviceType, IDevice } from "../../../shared/devices/device-interface";
 import { EnvDevice } from "../../../shared/devices/env-device";
 import { Sensor } from "../../../shared/devices/sensor";
-import { Environment } from "../../../shared/environment/environment";
+import { Environment } from "../../environment/environment";
 import { PlanEntry } from "../../../shared/plans/plans";
 import { Subcomponent } from "../subcomponent";
 import { ISubcomponent } from "../subcomponent-interface";

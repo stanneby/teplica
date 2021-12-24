@@ -146,7 +146,6 @@ export class Environment {
   }
 
   ping() {
-    console.log(this.temperatureSources);
     let tempChange = 0;
     this.temperatureSources.forEach((elem) => {
       let source = elem();
