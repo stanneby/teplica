@@ -7,26 +7,22 @@ import { PlanEntry } from "../../../shared/plans/plans";
 import { Subcomponent } from "../subcomponent";
 import { ISubcomponent } from "../subcomponent-interface";
 
-export class TemperatureSubcomponent extends Subcomponent {
+export class HumiditySubcomponent extends Subcomponent {
   constructor(types: DeviceType[]) {
     super();
 
     let x = 10;
     let y = 10;
     types.forEach((type) => {
-      if (type == DeviceType.TemperatureEnvDevice) {
-        let newDevice = new EnvDevice(type, "DegC", 70);
+      if (type == DeviceType.HumidityEnvDevice) {
+        let newDevice = new EnvDevice(type, "%");
         this.envDevices.push(newDevice);
-        Environment.getInstance().registerTemperatureSource(
-          newDevice.getSource
-        );
-      } else if (type == DeviceType.TemperatureSensor) {
+        Environment.getInstance().registerHumiditySource(newDevice.getSource);
+      } else if (type == DeviceType.HumiditySensor) {
         let newSensor = new Sensor(
           type,
-          "DegC",
-          Environment.getInstance().getTemperature.bind(
-            Environment.getInstance()
-          )
+          "%",
+          Environment.getInstance().getHumidity.bind(Environment.getInstance())
         );
         this.sensors.push(newSensor);
       }
@@ -34,7 +30,7 @@ export class TemperatureSubcomponent extends Subcomponent {
   }
 
   alert(entry: PlanEntry): ISubcomponent {
-    this.idealValue = entry.temperature;
+    this.idealValue = entry.humidity;
 
     return this;
   }

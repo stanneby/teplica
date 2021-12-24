@@ -7,24 +7,24 @@ import { PlanEntry } from "../../../shared/plans/plans";
 import { Subcomponent } from "../subcomponent";
 import { ISubcomponent } from "../subcomponent-interface";
 
-export class TemperatureSubcomponent extends Subcomponent {
+export class IlluminationSubcomponent extends Subcomponent {
   constructor(types: DeviceType[]) {
     super();
 
     let x = 10;
     let y = 10;
     types.forEach((type) => {
-      if (type == DeviceType.TemperatureEnvDevice) {
-        let newDevice = new EnvDevice(type, "DegC", 70);
+      if (type == DeviceType.IlluminationEnvDevice) {
+        let newDevice = new EnvDevice(type, "%");
         this.envDevices.push(newDevice);
-        Environment.getInstance().registerTemperatureSource(
+        Environment.getInstance().registerIlluminationSource(
           newDevice.getSource
         );
-      } else if (type == DeviceType.TemperatureSensor) {
+      } else if (type == DeviceType.IllumintionSensor) {
         let newSensor = new Sensor(
           type,
-          "DegC",
-          Environment.getInstance().getTemperature.bind(
+          "%",
+          Environment.getInstance().getIllumination.bind(
             Environment.getInstance()
           )
         );
@@ -33,8 +33,23 @@ export class TemperatureSubcomponent extends Subcomponent {
     });
   }
 
+  ping(): ISubcomponent {
+    if (this.sensors.length == 0) {
+      return;
+    }
+    let value = this.sensors[0].getValue();
+
+    if (value < this.idealValue) {
+      this.envDevices.find((elem) => !elem.getActive()).turnOn();
+    } else if (value > this.idealValue) {
+      this.envDevices.find((elem) => elem.getActive()).turnOff();
+    }
+
+    return this;
+  }
+
   alert(entry: PlanEntry): ISubcomponent {
-    this.idealValue = entry.temperature;
+    this.idealValue = entry.illumination;
 
     return this;
   }

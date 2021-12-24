@@ -30,7 +30,7 @@ export class Model implements IModel {
     this.timerComponent.reset();
     this.devicesComponent.reset(this.plansComponent.getPlan().deviceTypes);
 
-    // console.log(this.plansComponent.getPlan().entries[0]);
+    console.log(this.plansComponent.getPlan().entries[0]);
 
     let cycleProcess = () => {
       // console.log(!this.timerComponent.check(this.plansComponent.getEntry()));
@@ -38,6 +38,7 @@ export class Model implements IModel {
         let entry = this.timerComponent.chooseEntry(
           this.plansComponent.getPlan()
         );
+        console.log(entry);
         if (!entry) {
           // this.stopGrowth();
           return;

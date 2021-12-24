@@ -1,7 +1,7 @@
 import { DeviceType } from "../../../shared/devices/device-interface";
 import { MockDevice } from "../../../shared/devices/mock/mock-device";
 import { PlanEntry } from "../../../shared/plans/plans";
-import { ISubcomponent } from "./subcomponent";
+import { ISubcomponent } from "../subcomponent-interface";
 
 export class MockSubcomponent implements ISubcomponent {
   private devices: MockDevice[] = [];

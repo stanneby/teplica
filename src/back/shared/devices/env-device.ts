@@ -4,8 +4,10 @@ import { Device } from "./device";
 import { DevicePayload, DeviceType, IDevice } from "./device-interface";
 
 export class EnvDevice extends Device {
-  private value = 70;
   private active: boolean = false;
+  getActive() {
+    return this.active;
+  }
 
   getSource = () => {
     let source = {} as SourceParam;
@@ -16,7 +18,7 @@ export class EnvDevice extends Device {
     return source;
   };
 
-  constructor(type: DeviceType, measure: string) {
+  constructor(type: DeviceType, measure: string, private value = 100) {
     super(type, measure);
   }
 

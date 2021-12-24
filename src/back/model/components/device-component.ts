@@ -1,8 +1,11 @@
 import { DeviceType, IDevice } from "../../shared/devices/device-interface";
 import { PlanEntry } from "../../shared/plans/plans";
+import { HumiditySubcomponent as HumiditySubcomponent } from "./element-subcomsponents/humidity-subcomponent";
 import { MockSubcomponent } from "./element-subcomsponents/mock-subsystem";
-import { ISubcomponent } from "./element-subcomsponents/subcomponent";
+import { ISubcomponent } from "./subcomponent-interface";
 import { TemperatureSubcomponent } from "./element-subcomsponents/temperature-subcomponent";
+import { IlluminationSubcomponent } from "./element-subcomsponents/illumination-subcomponent";
+import { PHSubcomponent } from "./element-subcomsponents/ph-subcoponent";
 
 export class DevicesComponent {
   private subcomponents: ISubcomponent[] = [];
@@ -14,6 +17,9 @@ export class DevicesComponent {
   reset(types: DeviceType[]) {
     this.clear();
     this.subcomponents.push(new TemperatureSubcomponent(types));
+    this.subcomponents.push(new HumiditySubcomponent(types));
+    this.subcomponents.push(new IlluminationSubcomponent(types));
+    this.subcomponents.push(new PHSubcomponent(types));
     return this;
   }
 

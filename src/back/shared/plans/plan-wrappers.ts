@@ -4,7 +4,7 @@ export class PlanEntryDecorator {
   constructor(private entry: PlanEntry) {
     this.entry.humidity = 0;
     this.entry.illumination = 100;
-    this.entry.temperature = 30;
+    this.entry.temperature = 60;
     this.entry.pH = 4.5;
   }
 

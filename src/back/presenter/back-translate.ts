@@ -123,8 +123,7 @@ export class BackTranslator {
     presentation.y = device.y;
 
     let payload = device.getPayload();
-    if (payload.value !== undefined)
-      presentation.value = `${Math.trunc(payload.value)}`;
+    if (payload.value !== undefined) presentation.value = `${payload.value}`;
     if (payload.active !== undefined) presentation.active = payload.active;
 
     if (device.measureUnit !== undefined)

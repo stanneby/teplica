@@ -52,7 +52,7 @@ export class DeviceComponent extends BaseComponent {
     }
 
     if (data.value) {
-      this.value.setText(data.value);
+      this.value.setText(`${Math.trunc(+data.value)}`);
       this.additionalValue.setText(`Value: ${data.value}`);
     } else {
       this.value.setText("");
