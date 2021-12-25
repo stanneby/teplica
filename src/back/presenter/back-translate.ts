@@ -1,9 +1,11 @@
 import {
   DevicePresentationData,
+  GrowthPresentationData,
   PlanTablePresentationData,
+  PlanTableRowPresentationData,
 } from "../../front/shared/common-types";
 import { DeviceType, IDevice } from "../shared/devices/device-interface";
-import { Plan } from "../shared/plans/plans";
+import { Plan, PlanEntry } from "../shared/plans/plans";
 
 export class BackTranslator {
   static translationTable: { type: DeviceType; name: string; icon: string }[] =
@@ -86,11 +88,21 @@ export class BackTranslator {
     return presentationData;
   }
 
-  translateDevices(devices: IDevice[]): DevicePresentationData[] {
-    let presentationData: DevicePresentationData[] = [];
+  translateDevices(
+    devices: IDevice[],
+    entry: PlanEntry,
+    timestamp: number
+  ): GrowthPresentationData[] {
+    let presentationData: GrowthPresentationData[] = [];
+    presentationData.push({} as GrowthPresentationData);
 
+    presentationData[0].timestamp = Math.trunc(timestamp / 1000);
+
+    presentationData[0].entry = this.translateEntry(entry);
+
+    presentationData[0].devices = [];
     devices.forEach((device) => {
-      presentationData.push(this.translateDevice(device));
+      presentationData[0].devices.push(this.translateDevice(device));
     });
 
     return presentationData;
@@ -111,6 +123,20 @@ export class BackTranslator {
 
       presentation.devices.push(name);
     });
+
+    return presentation;
+  }
+
+  private translateEntry(entry: PlanEntry): PlanTableRowPresentationData {
+    let presentation: PlanTableRowPresentationData =
+      {} as PlanTableRowPresentationData;
+
+    presentation.start = Math.trunc(entry.startTimestamp / 1000);
+    presentation.end = Math.trunc(entry.endTimestamp / 1000);
+    presentation.temperature = entry.temperature;
+    presentation.humidity = entry.humidity;
+    presentation.illumination = entry.illumination;
+    presentation.ph = entry.pH;
 
     return presentation;
   }

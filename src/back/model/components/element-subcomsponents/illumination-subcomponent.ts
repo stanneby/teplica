@@ -12,11 +12,21 @@ export class IlluminationSubcomponent extends Subcomponent {
     super();
 
     let x = 10;
-    let y = 10;
+    let y = 65;
+
+    const propogateCoords = () => {
+      x += this.xAddition;
+      if (x > 90) {
+        y += this.yAddition;
+        x = 10;
+      }
+    };
+
     types.forEach((type) => {
       if (type == DeviceType.IlluminationEnvDevice) {
-        let newDevice = new EnvDevice(type, "%");
+        let newDevice = new EnvDevice(type, "%", 100, x, y);
         this.envDevices.push(newDevice);
+        propogateCoords();
         Environment.getInstance().registerIlluminationSource(
           newDevice.getSource
         );
@@ -26,8 +36,11 @@ export class IlluminationSubcomponent extends Subcomponent {
           "%",
           Environment.getInstance().getIllumination.bind(
             Environment.getInstance()
-          )
+          ),
+          x,
+          y
         );
+        propogateCoords();
         this.sensors.push(newSensor);
       }
     });

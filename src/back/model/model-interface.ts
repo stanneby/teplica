@@ -1,4 +1,4 @@
-import { Plan } from "../shared/plans/plans";
+import { Plan, PlanEntry } from "../shared/plans/plans";
 import { IDevice } from "../shared/devices/device-interface";
 
 export interface IModel {
@@ -7,7 +7,9 @@ export interface IModel {
   stopGrowth(): IModel;
   getPlans(): Plan[];
 
-  addDeviceUpdateListener(callback: (devices: IDevice[]) => void): IModel;
+  addDeviceUpdateListener(
+    callback: (devices: IDevice[], entry: PlanEntry, timestamp: number) => void
+  ): IModel;
   addInternalStopGrowthListener(callback: () => void): IModel;
   clearDeviceUpdateListeners(): IModel;
   clearInternalStopGrowthListeners(): IModel;

@@ -2,6 +2,7 @@ import { DevicePresentationData } from "../../front/shared/common-types";
 import { BackMocker } from "../../shared/mock/mockers";
 import { IModel } from "../model/model-interface";
 import { IDevice } from "../shared/devices/device-interface";
+import { PlanEntry } from "../shared/plans/plans";
 import { IBackPresenter } from "./b-presenter-interface";
 import { BackTranslator } from "./back-translate";
 import { ReceiverTransmitterBack } from "./rt-back";
@@ -15,11 +16,13 @@ export class BackPresenter implements IBackPresenter {
     this.backrt = new ReceiverTransmitterBack(
       (name: string) => {
         this.model
-          .addDeviceUpdateListener((devices: IDevice[]) => {
-            this.backrt.broadcastDeviceUpdate(
-              this.translator.translateDevices(devices)
-            );
-          })
+          .addDeviceUpdateListener(
+            (devices: IDevice[], entry: PlanEntry, timestamp: number) => {
+              this.backrt.broadcastDeviceUpdate(
+                this.translator.translateDevices(devices, entry, timestamp)
+              );
+            }
+          )
           .addInternalStopGrowthListener(() => {
             this.backrt.broadcastPlans(
               this.translator.translatePlans(this.model.getPlans())
@@ -37,7 +40,7 @@ export class BackPresenter implements IBackPresenter {
       () => {
         const mode = this.testMocker.getMode();
         if (mode == 1) {
-          this.backrt.broadcastDeviceUpdate(this.testMocker.getDevices());
+          // TO BE CHANGED          this.backrt.broadcastDeviceUpdate();
         } else if (mode == 0) {
           this.backrt.broadcastPlans(
             this.translator.translatePlans(this.model.getPlans())

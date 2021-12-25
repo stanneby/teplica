@@ -1,5 +1,6 @@
 import {
   DevicePresentationData,
+  GrowthPresentationData,
   PlanTablePresentationData,
 } from "../../front/shared/common-types";
 import { Message, RequestType } from "../../shared/rt-types";
@@ -38,7 +39,7 @@ export class ReceiverTransmitterBack {
   }
 
   broadcastDeviceUpdate(
-    devices: DevicePresentationData[]
+    devices: GrowthPresentationData[]
   ): ReceiverTransmitterBack {
     this.connections.forEach((ws) => {
       ws.send(

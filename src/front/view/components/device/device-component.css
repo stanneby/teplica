@@ -23,7 +23,7 @@
 
 .device_value {
   position: absolute;
-  top: 6px;
+  top: 10px;
   left: 6px;
 
   color: white;
@@ -32,8 +32,8 @@
 .device_icon {
   position: absolute;
 
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
 }
 
 .device_info-container {
