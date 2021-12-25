@@ -1,6 +1,6 @@
 [
   {
-    "name": "Potatos",
+    "name": "Succulents",
     "deviceTypes": [1, 2, 3, 4, 5, 6, 7, 8],
     "entries": [
       {
@@ -20,6 +20,48 @@
         "illumination": 100,
         "humidity": 50,
         "pH": 5
+      }
+    ]
+  },
+  {
+    "name": "Potatos",
+    "deviceTypes": [1, 1, 2, 2, 3, 4, 5, 6, 7, 8],
+    "entries": [
+      {
+        "startTimestamp": 0,
+        "endTimestamp": 50000,
+        "ifEnd": false,
+        "temperature": 20,
+        "illumination": 100,
+        "humidity": 50,
+        "pH": 3.8
+      },
+      {
+        "startTimestamp": 50000,
+        "endTimestamp": 100000,
+        "ifEnd": false,
+        "temperature": 10,
+        "illumination": 0,
+        "humidity": 80,
+        "pH": 3.8
+      },
+      {
+        "startTimestamp": 100000,
+        "endTimestamp": 150000,
+        "ifEnd": false,
+        "temperature": 20,
+        "illumination": 100,
+        "humidity": 50,
+        "pH": 3.8
+      },
+      {
+        "startTimestamp": 150000,
+        "endTimestamp": 200000,
+        "ifEnd": false,
+        "temperature": 10,
+        "illumination": 0,
+        "humidity": 80,
+        "pH": 3.8
       }
     ]
   }
