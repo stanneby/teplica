@@ -6,9 +6,13 @@ import { Page } from "./page";
 import { ISettableInterface } from "../../settable-interface";
 import { DeviceComponent } from "../device/device-component";
 import "./page.css";
+import { GrowthStateComponent } from "../growth-state/growth-state-component";
 
 export class GrowthPage extends Page implements ISettableInterface {
   private devices: DeviceComponent[] = [];
+  private state: GrowthStateComponent = new GrowthStateComponent().render(
+    this.element
+  ) as GrowthStateComponent;
 
   constructor() {
     super(["growth-page"]);
@@ -27,6 +31,8 @@ export class GrowthPage extends Page implements ISettableInterface {
         );
       }
     });
+
+    this.state.update(data);
     return this;
   }
 

@@ -1,0 +1,12 @@
+.growth-state {
+  position: absolute;
+  left: 650px;
+}
+
+.growth-state > * {
+  width: 200px;
+
+  margin: 20px;
+  padding: 10px;
+  background-color: lightgray;
+}
