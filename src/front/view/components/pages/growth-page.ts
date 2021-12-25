@@ -1,4 +1,7 @@
-import { DevicePresentationData } from "../../../shared/common-types";
+import {
+  DevicePresentationData,
+  GrowthPresentationData,
+} from "../../../shared/common-types";
 import { Page } from "./page";
 import { ISettableInterface } from "../../settable-interface";
 import { DeviceComponent } from "../device/device-component";
@@ -11,8 +14,8 @@ export class GrowthPage extends Page implements ISettableInterface {
     super(["growth-page"]);
   }
 
-  setData(data: DevicePresentationData[]) {
-    data.forEach((deviceData) => {
+  setData(data: GrowthPresentationData[]) {
+    data[0]?.devices.forEach((deviceData) => {
       let deviceListed = this.findAmongDevices(deviceData);
       if (deviceListed) {
         deviceListed.update(deviceData);

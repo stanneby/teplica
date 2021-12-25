@@ -1,4 +1,7 @@
-import { PlanTablePresentationData } from "../shared/common-types";
+import {
+  GrowthPresentationData,
+  PlanTablePresentationData,
+} from "../shared/common-types";
 import { DevicePresentationData } from "../shared/common-types";
 import { WindowComponent } from "./components/window/window-component";
 import { IView } from "./view-interface";
@@ -43,7 +46,7 @@ export class View implements IView {
     return this;
   }
 
-  updateDevices(data: DevicePresentationData[]): IView {
+  updateDevices(data: GrowthPresentationData[]): IView {
     this.window.setData(data);
     return this;
   }

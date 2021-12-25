@@ -2,6 +2,7 @@ import { DevicePresentationDataDirector } from "../../shared/mock/mock";
 import { FrontMocker } from "../../shared/mock/mockers";
 import {
   DevicePresentationData,
+  GrowthPresentationData,
   PlanTablePresentationData,
 } from "../shared/common-types";
 import { IView } from "../view/view-interface";
@@ -22,7 +23,7 @@ export class Presenter implements IPresenter {
         this.view.setMode(0);
         this.view.givePlanTables(plans);
       },
-      (devices: DevicePresentationData[]) => {
+      (devices: GrowthPresentationData[]) => {
         this.view.setMode(1);
         this.view.updateDevices(devices);
       }

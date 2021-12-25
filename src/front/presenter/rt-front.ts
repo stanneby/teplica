@@ -2,6 +2,7 @@ import { CONNECTING } from "ws";
 import { Message, RequestType } from "../../shared/rt-types";
 import {
   DevicePresentationData,
+  GrowthPresentationData,
   PlanTablePresentationData,
 } from "../shared/common-types";
 
@@ -10,7 +11,7 @@ export class ReceiverTransmitterFront {
 
   constructor(
     onPlansGivenCallback: (plans: PlanTablePresentationData[]) => void,
-    onDevicesUpdateCallback: (devices: DevicePresentationData[]) => void
+    onDevicesUpdateCallback: (devices: GrowthPresentationData[]) => void
   ) {
     this.ws.addEventListener("open", function (event) {});
 
@@ -23,7 +24,7 @@ export class ReceiverTransmitterFront {
           );
         } else if (message.type == RequestType.UpdateDevices) {
           onDevicesUpdateCallback(
-            JSON.parse(message.data) as DevicePresentationData[]
+            JSON.parse(message.data) as GrowthPresentationData[]
           );
         }
       }
