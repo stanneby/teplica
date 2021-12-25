@@ -13,8 +13,11 @@ export class Model implements IModel {
 
   private checkInterval: NodeJS.Timer;
   private timeout: number = 5000;
-  private updateCallbacks: ((devices: IDevice[], entry: PlanEntry) => void)[] =
-    [];
+  private updateCallbacks: ((
+    devices: IDevice[],
+    entry: PlanEntry,
+    timestamp: number
+  ) => void)[] = [];
   private internalStopCallbacks: (() => void)[] = [];
 
   constructor() {
@@ -32,10 +35,7 @@ export class Model implements IModel {
     this.timerComponent.reset();
     this.devicesComponent.reset(this.plansComponent.getPlan().deviceTypes);
 
-    console.log(this.plansComponent.getPlan().entries[0]);
-
     let cycleProcess = () => {
-      //if (!this.timerComponent.check(this.plansComponent.getEntry())) {
       let entry = this.timerComponent.chooseEntry(
         this.plansComponent.getPlan()
       );
@@ -46,12 +46,13 @@ export class Model implements IModel {
       }
       this.plansComponent.setEntry(entry);
       this.devicesComponent.alert(entry);
-      //}
+
       this.devicesComponent.ping();
       this.updateCallbacks.forEach((callback) => {
         callback(
           this.devicesComponent.getDevices(),
-          this.plansComponent.getEntry()
+          this.plansComponent.getEntry(),
+          this.timerComponent.getCurrentTime()
         );
       });
     };
@@ -75,7 +76,7 @@ export class Model implements IModel {
   }
 
   addDeviceUpdateListener(
-    callback: (devices: IDevice[], entry: PlanEntry) => void
+    callback: (devices: IDevice[], entry: PlanEntry, timestamp: number) => void
   ): IModel {
     this.updateCallbacks.push(callback);
 

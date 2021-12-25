@@ -8,7 +8,7 @@ export interface IModel {
   getPlans(): Plan[];
 
   addDeviceUpdateListener(
-    callback: (devices: IDevice[], entry: PlanEntry) => void
+    callback: (devices: IDevice[], entry: PlanEntry, timestamp: number) => void
   ): IModel;
   addInternalStopGrowthListener(callback: () => void): IModel;
   clearDeviceUpdateListeners(): IModel;

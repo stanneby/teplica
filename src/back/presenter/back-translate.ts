@@ -90,12 +90,13 @@ export class BackTranslator {
 
   translateDevices(
     devices: IDevice[],
-    entry: PlanEntry
+    entry: PlanEntry,
+    timestamp: number
   ): GrowthPresentationData[] {
     let presentationData: GrowthPresentationData[] = [];
     presentationData.push({} as GrowthPresentationData);
 
-    presentationData[0].timestamp = entry.startTimestamp;
+    presentationData[0].timestamp = Math.trunc(timestamp / 1000);
 
     presentationData[0].entry = this.translateEntry(entry);
 

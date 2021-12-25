@@ -16,11 +16,13 @@ export class BackPresenter implements IBackPresenter {
     this.backrt = new ReceiverTransmitterBack(
       (name: string) => {
         this.model
-          .addDeviceUpdateListener((devices: IDevice[], entry: PlanEntry) => {
-            this.backrt.broadcastDeviceUpdate(
-              this.translator.translateDevices(devices, entry)
-            );
-          })
+          .addDeviceUpdateListener(
+            (devices: IDevice[], entry: PlanEntry, timestamp: number) => {
+              this.backrt.broadcastDeviceUpdate(
+                this.translator.translateDevices(devices, entry, timestamp)
+              );
+            }
+          )
           .addInternalStopGrowthListener(() => {
             this.backrt.broadcastPlans(
               this.translator.translatePlans(this.model.getPlans())
