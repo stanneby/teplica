@@ -29,11 +29,11 @@ export class EntryComponent extends BaseComponent {
   }
 
   update(row: PlanTableRowPresentationData) {
-    this.start.setText(`       start: ${row.start}`);
-    this.end.setText(`         end: ${row.end}`);
-    this.temperature.setText(` temperature: ${row.temperature}`);
-    this.humidity.setText(`    humidity: ${row.humidity}`);
+    this.start.setText(`entrey start:  ${row.start}`);
+    this.end.setText(`entry end:    ${row.end}`);
+    this.temperature.setText(`temperature:  ${row.temperature}`);
+    this.humidity.setText(`humidity:     ${row.humidity}`);
     this.illumination.setText(`illumination: ${row.illumination}`);
-    this.pH.setText(`          pH: ${row.ph}`);
+    this.pH.setText(`pH:           ${row.ph}`);
   }
 }
