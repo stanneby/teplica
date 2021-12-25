@@ -1,3 +1,4 @@
+import { getRandomInt } from "../../../shared/mock/mock";
 import { Environment } from "../../model/environment/environment";
 import { SourceParam } from "../../model/environment/sourceParam";
 import { Device } from "./device";
@@ -18,8 +19,14 @@ export class EnvDevice extends Device {
     return source;
   };
 
-  constructor(type: DeviceType, measure: string, private value = 100) {
-    super(type, measure);
+  constructor(
+    type: DeviceType,
+    measure: string,
+    private value = 100,
+    x = getRandomInt(),
+    y = getRandomInt()
+  ) {
+    super(type, measure, x, y);
   }
 
   turnOn(): IDevice {

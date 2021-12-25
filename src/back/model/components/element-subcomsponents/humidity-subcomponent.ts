@@ -12,18 +12,33 @@ export class HumiditySubcomponent extends Subcomponent {
     super();
 
     let x = 10;
-    let y = 10;
+    let y = 35;
+
+    const propogateCoords = () => {
+      x += this.xAddition;
+      if (x > 90) {
+        y += this.yAddition;
+        x = 10;
+      }
+    };
+
     types.forEach((type) => {
       if (type == DeviceType.HumidityEnvDevice) {
-        let newDevice = new EnvDevice(type, "%");
+        console.log(x);
+        console.log(y);
+        let newDevice = new EnvDevice(type, "%", 100, x, y);
         this.envDevices.push(newDevice);
+        propogateCoords();
         Environment.getInstance().registerHumiditySource(newDevice.getSource);
       } else if (type == DeviceType.HumiditySensor) {
         let newSensor = new Sensor(
           type,
           "%",
-          Environment.getInstance().getHumidity.bind(Environment.getInstance())
+          Environment.getInstance().getHumidity.bind(Environment.getInstance()),
+          x,
+          y
         );
+        propogateCoords();
         this.sensors.push(newSensor);
       }
     });

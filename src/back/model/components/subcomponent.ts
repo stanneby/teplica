@@ -13,6 +13,9 @@ export class Subcomponent implements ISubcomponent {
   protected idealValue: number = 0;
   protected maxDivergence: number = 10;
 
+  protected readonly xAddition = 15;
+  protected readonly yAddition = 15;
+
   getDevices(): IDevice[] {
     let devices: IDevice[] = [];
     devices = devices.concat(this.envDevices);

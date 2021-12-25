@@ -12,10 +12,20 @@ export class TemperatureSubcomponent extends Subcomponent {
     super();
 
     let x = 10;
-    let y = 10;
+    let y = 5;
+
+    const propogateCoords = () => {
+      x += this.xAddition;
+      if (x > 90) {
+        y += this.yAddition;
+        x = 10;
+      }
+    };
+
     types.forEach((type) => {
       if (type == DeviceType.TemperatureEnvDevice) {
-        let newDevice = new EnvDevice(type, "DegC", 70);
+        let newDevice = new EnvDevice(type, "DegC", 70, x, y);
+        propogateCoords();
         this.envDevices.push(newDevice);
         Environment.getInstance().registerTemperatureSource(
           newDevice.getSource
@@ -26,8 +36,11 @@ export class TemperatureSubcomponent extends Subcomponent {
           "DegC",
           Environment.getInstance().getTemperature.bind(
             Environment.getInstance()
-          )
+          ),
+          x,
+          y
         );
+        propogateCoords();
         this.sensors.push(newSensor);
       }
     });

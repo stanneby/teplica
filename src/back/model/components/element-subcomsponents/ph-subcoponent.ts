@@ -13,18 +13,31 @@ export class PHSubcomponent extends Subcomponent {
     super();
 
     let x = 10;
-    let y = 10;
+    let y = 95;
+
+    const propogateCoords = () => {
+      x += this.xAddition;
+      if (x > 90) {
+        y += this.yAddition;
+        x = 10;
+      }
+    };
+
     types.forEach((type) => {
       if (type == DeviceType.PHEnvDevice) {
-        let newDevice = new EnvDevice(type, "pH", 8);
+        let newDevice = new EnvDevice(type, "pH", 8, x, y);
         this.envDevices.push(newDevice);
+        propogateCoords();
         Environment.getInstance().registerpHSource(newDevice.getSource);
       } else if (type == DeviceType.PHSensor) {
         let newSensor = new Sensor(
           type,
           "pH",
-          Environment.getInstance().getpH.bind(Environment.getInstance())
+          Environment.getInstance().getpH.bind(Environment.getInstance()),
+          x,
+          y
         );
+        propogateCoords();
         this.sensors.push(newSensor);
       }
     });
